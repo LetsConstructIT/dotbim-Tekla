@@ -9,14 +9,14 @@ public class Face
 {
     public Vector Normal { get; }
     public Polygon Contour { get; }
-    public IEnumerable<Polygon> Holes { get; }
+    public IReadOnlyList<Polygon> Holes { get; }
 
-    public Face(Polygon contour, Vector normal) : this(contour, normal, Enumerable.Empty<Polygon>())
+    public Face(Polygon contour, Vector normal) : this(contour, normal, Array.Empty<Polygon>())
     {
 
     }
 
-    public Face(Polygon contour, Vector normal, IEnumerable<Polygon> holes)
+    public Face(Polygon contour, Vector normal, IReadOnlyList<Polygon> holes)
     {
         Contour = contour ?? throw new ArgumentNullException(nameof(contour));
         Normal = normal ?? throw new ArgumentNullException(nameof(normal));

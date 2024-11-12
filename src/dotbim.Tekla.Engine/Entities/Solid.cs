@@ -5,9 +5,9 @@ namespace dotbim.Tekla.Engine.Entities;
 
 public class Solid
 {
-    public IEnumerable<Face> Faces { get; }
+    public IReadOnlyList<Face> Faces { get; }
 
-    public Solid(IEnumerable<Face> faces)
+    public Solid(IReadOnlyList<Face> faces)
     {
         Faces = faces ?? throw new ArgumentNullException(nameof(faces));
     }

@@ -35,7 +35,7 @@ public class TeklaToDomainTransformer
             polygons.Add(Transform(loop));
         }
 
-        return new Face(polygons.First(), teklaFace.Normal, polygons.Skip(1));
+        return new Face(polygons.First(), teklaFace.Normal, polygons.Skip(1).ToArray());
     }
 
     private Polygon Transform(TSS.Loop loop)

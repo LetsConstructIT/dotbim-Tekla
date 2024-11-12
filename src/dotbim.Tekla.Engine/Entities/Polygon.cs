@@ -6,9 +6,9 @@ namespace dotbim.Tekla.Engine.Entities;
 
 public class Polygon
 {
-    public IEnumerable<Point> Points{ get; }
+    public IReadOnlyList<Point> Points{ get; }
 
-    public Polygon(IEnumerable<Point> points)
+    public Polygon(IReadOnlyList<Point> points)
     {
         Points = points ?? throw new ArgumentNullException(nameof(points));
     }
