@@ -19,8 +19,7 @@ namespace dotbim.Tekla.Engine.TestHelpers
 
         public static void Select(string identifier)
         {
-            var id = new Identifier(identifier);
-            var modelObject = new Model().SelectModelObject(id);
+            var modelObject = GetModelObject(identifier);
 
             var objectsToSelect = new ArrayList()
             {
@@ -28,6 +27,18 @@ namespace dotbim.Tekla.Engine.TestHelpers
             };
 
             new TSMUI.ModelObjectSelector().Select(objectsToSelect);
+        }
+
+        public static ModelObject GetModelObject(string identifier)
+        {
+            var id = new Identifier(identifier);
+            return new Model().SelectModelObject(id);
+        }
+
+        public static Part GetPart(string identifier)
+        {
+            var id = new Identifier(identifier);
+            return (Part)new Model().SelectModelObject(id);
         }
     }
 }
