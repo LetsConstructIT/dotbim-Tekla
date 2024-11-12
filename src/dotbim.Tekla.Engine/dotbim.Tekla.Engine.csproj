@@ -13,4 +13,8 @@
         <PackageReference Include="Tekla.Structures.Model" Version="2024.0.4" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Entities\" />
+    </ItemGroup>
+
 </Project>
