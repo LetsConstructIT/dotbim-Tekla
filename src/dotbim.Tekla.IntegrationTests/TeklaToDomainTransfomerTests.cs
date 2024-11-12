@@ -7,7 +7,7 @@ using System.Linq;
 namespace dotbim.Tekla.IntegrationTests
 {
     [TestClass]
-    public class TeklaToDomainTransfomer_Tests
+    public class TeklaToDomainTransfomerTests
     {
         [TestMethod]
         public void Transform_ReturnsCorrectGeometry()

@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace dotbim.Tekla.IntegrationTests
 {
     [TestClass]
-    public class TeklaSelector_Tests
+    public class TeklaSelectorTests
     {
 
         [TestMethod]
