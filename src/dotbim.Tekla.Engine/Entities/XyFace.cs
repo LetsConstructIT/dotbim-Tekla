@@ -8,6 +8,11 @@ public class XyFace
     public Polygon Contour { get; }
     public IReadOnlyList<Polygon> Holes { get; }
 
+    public XyFace(Polygon contour) : this(contour, Array.Empty<Polygon>())
+    {
+
+    }
+
     public XyFace(Polygon contour, IReadOnlyList<Polygon> holes)
     {
         Contour = contour ?? throw new ArgumentNullException(nameof(contour));
