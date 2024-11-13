@@ -32,4 +32,16 @@ public class Face
                                     axisX.GetNormal(),
                                     axisY.GetNormal());
     }
+
+    public XyFace TransformToLocal()
+    {
+        var coord = GetCoordinateSystem();
+
+        var matrix = MatrixFactory.ToCoordinateSystem(coord);
+
+        var localContour = Contour.TransformBy(matrix);
+        var localHoles = Holes.Select(h => h.TransformBy(matrix));
+
+        return new XyFace(localContour, localHoles.ToArray());
+    }
 }

@@ -29,5 +29,26 @@ namespace dotbim.Tekla.IntegrationTests
             result.AxisX.Should().Be(new Vector(0, 1, 0));
             result.AxisY.Should().Be(new Vector(-1, 0, 0));
         }
+
+        [TestMethod]
+        public void TransformToLocal_ReturnCorrectCS()
+        {
+            var contour = new Polygon(new Point[]
+            {
+                new Point(10000,0,5000),
+                new Point(10000,10000,5000),
+                new Point(0,0,5000)
+            });
+
+            var face = new Face(contour, new Vector(0, 0, 1));
+
+            var result = face.TransformToLocal();
+            result.Contour.Points.Should().HaveCount(3);
+            result.Contour.Points[0].Should().Be(new Point(0, 0, 0));
+            result.Contour.Points[1].Should().Be(new Point(10000, 0, 0));
+            result.Contour.Points[2].Should().Be(new Point(0, 10000, 0));
+            result.Holes.Should().BeEmpty();
+        }
+
     }
 }
