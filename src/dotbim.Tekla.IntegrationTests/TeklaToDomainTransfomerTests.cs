@@ -22,5 +22,23 @@ namespace dotbim.Tekla.IntegrationTests
             result.Faces.Should().HaveCount(6);
             result.Faces.First().Contour.Points.Should().HaveCount(4);
         }
+
+        [TestMethod]
+        public void DummyTest()
+        {
+            var identifier = "506929d7-0000-0028-3133-343930373137";
+            var part = TeklaHelper.GetPart(identifier);
+
+            var sut = new TeklaToDomainTransformer();
+
+            var result = sut.Transform(part);
+            var triangles = new SolidTesselator().GetMesh(result);
+            var drawer = new PolylineDrawer();
+            foreach (var tri in triangles)
+            {
+                drawer.Draw(tri);
+            }
+        }
+        
     }
 }
