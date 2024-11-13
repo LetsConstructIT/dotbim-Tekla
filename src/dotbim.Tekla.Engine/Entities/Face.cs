@@ -22,4 +22,14 @@ public class Face
         Normal = normal ?? throw new ArgumentNullException(nameof(normal));
         Holes = holes ?? throw new ArgumentNullException(nameof(holes));
     }
+
+    public CoordinateSystem GetCoordinateSystem()
+    {
+        var axisX = new Vector(Contour.Points[1] - Contour.Points[0]);
+        var axisY = Normal.Cross(axisX);
+
+        return new CoordinateSystem(Contour.Points.First(),
+                                    axisX.GetNormal(),
+                                    axisY.GetNormal());
+    }
 }
