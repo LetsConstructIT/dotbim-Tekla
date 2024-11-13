@@ -20,7 +20,7 @@ namespace dotbim.Tekla.IntegrationTests
                 new Point(0,500,0),
             });
             var face = new XyFace(contour);
-            var sut = new LibTessDotNetDomainToTrianglesTransfomer();
+            var sut = new LibTessDotNetDomainToXyTrianglesTransfomer();
 
             var result = sut.Transform(face);
             result.Should().HaveCount(2);

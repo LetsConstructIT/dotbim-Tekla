@@ -5,7 +5,7 @@ using TSG = Tekla.Structures.Geometry3d;
 
 namespace dotbim.Tekla.Engine.Transformers;
 
-public class LibTessDotNetDomainToTrianglesTransfomer : IDomainToTrianglesTransformer
+public class LibTessDotNetDomainToXyTrianglesTransfomer : IDomainToTrianglesTransformer
 {
     private readonly Tess _tess = new();
 
