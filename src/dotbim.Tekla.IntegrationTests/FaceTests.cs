@@ -31,7 +31,7 @@ namespace dotbim.Tekla.IntegrationTests
         }
 
         [TestMethod]
-        public void TransformToLocal_ReturnCorrectCS()
+        public void TransformToLocal_ForXyFace_ReturnCorrectCS()
         {
             var contour = new Polygon(new Point[]
             {
@@ -50,5 +50,28 @@ namespace dotbim.Tekla.IntegrationTests
             result.Holes.Should().BeEmpty();
         }
 
+        [TestMethod]
+        public void TransformToLocal_ForNonXyFace_ReturnCorrectCS()
+        {
+            var contour = new Polygon(new Point[]
+            {
+                new Point(-4447.79,-2266.56,39375.03),
+                new Point(-1477.94,-5236.41,39375.03),
+                new Point(-1477.94,-5236.41,35775.03),
+                new Point(-4447.79,-2266.56,35775.03)
+            });
+
+            var normal = new Vector(new Point(-4447.79, -2266.56, 35775.03) - new Point(-4334.66, -2153.42, 35775.03));
+
+            var face = new Face(contour, normal);
+
+            var result = face.TransformToLocal();
+            result.Contour.Points.Should().HaveCount(4);
+            result.Contour.Points[0].Should().Be(new Point(0, 0, 0));
+            result.Contour.Points[1].Should().Be(new Point(4200.002, 0, 0));
+            result.Contour.Points[2].Should().Be(new Point(4200.002, -3600, 0));
+            result.Contour.Points[3].Should().Be(new Point(0, -3600, 0));
+            result.Holes.Should().BeEmpty();
+        }
     }
 }
