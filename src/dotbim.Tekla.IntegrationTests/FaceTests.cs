@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tekla.Structures.Geometry3d;
+using TSG = Tekla.Structures.Geometry3d;
 
 namespace dotbim.Tekla.IntegrationTests
 {
@@ -22,12 +23,12 @@ namespace dotbim.Tekla.IntegrationTests
                 new Point(1000,1000,0)
             });
 
-            var face = new Face(contour, new Vector(0, 0, 1));
+            var face = new Face(contour, new TSG.Vector(0, 0, 1));
 
             var result = face.GetCoordinateSystem();
             result.Origin.Should().Be(new Point(1000, 0, 0));
-            result.AxisX.Should().Be(new Vector(0, 1, 0));
-            result.AxisY.Should().Be(new Vector(-1, 0, 0));
+            result.AxisX.Should().Be(new TSG.Vector(0, 1, 0));
+            result.AxisY.Should().Be(new TSG.Vector(-1, 0, 0));
         }
 
         [TestMethod]
@@ -40,7 +41,7 @@ namespace dotbim.Tekla.IntegrationTests
                 new Point(0,0,5000)
             });
 
-            var face = new Face(contour, new Vector(0, 0, 1));
+            var face = new Face(contour, new TSG.Vector(0, 0, 1));
 
             var result = face.TransformToLocal();
             result.Contour.Points.Should().HaveCount(3);
@@ -61,7 +62,7 @@ namespace dotbim.Tekla.IntegrationTests
                 new Point(-4447.79,-2266.56,35775.03)
             });
 
-            var normal = new Vector(new Point(-4447.79, -2266.56, 35775.03) - new Point(-4334.66, -2153.42, 35775.03));
+            var normal = new TSG.Vector(new Point(-4447.79, -2266.56, 35775.03) - new Point(-4334.66, -2153.42, 35775.03));
 
             var face = new Face(contour, normal);
 

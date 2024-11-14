@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tekla.Structures.Geometry3d;
+using TSG = Tekla.Structures.Geometry3d;
 
 namespace dotbim.Tekla.Engine.Entities;
 
 public class Face
 {
-    public Vector Normal { get; }
+    public TSG.Vector Normal { get; }
     public Polygon Contour { get; }
     public IReadOnlyList<Polygon> Holes { get; }
-    private CoordinateSystem _coord;
+    private TSG.CoordinateSystem _coord;
 
-    public Face(Polygon contour, Vector normal) : this(contour, normal, Array.Empty<Polygon>())
+    public Face(Polygon contour, TSG.Vector normal) : this(contour, normal, Array.Empty<Polygon>())
     {
 
     }
 
-    public Face(Polygon contour, Vector normal, IReadOnlyList<Polygon> holes)
+    public Face(Polygon contour, TSG.Vector normal, IReadOnlyList<Polygon> holes)
     {
         Contour = contour ?? throw new ArgumentNullException(nameof(contour));
         Normal = normal ?? throw new ArgumentNullException(nameof(normal));
@@ -26,19 +26,19 @@ public class Face
         _coord = GetCoordinateSystem();
     }
 
-    public CoordinateSystem GetCoordinateSystem()
+    public TSG.CoordinateSystem GetCoordinateSystem()
     {
-        var axisX = new Vector(Contour.Points[1] - Contour.Points[0]);
+        var axisX = new TSG.Vector(Contour.Points[1] - Contour.Points[0]);
         var axisY = Normal.Cross(axisX);
 
-        return new CoordinateSystem(Contour.Points.First(),
-                                    axisX.GetNormal(),
-                                    axisY.GetNormal());
+        return new TSG.CoordinateSystem(Contour.Points.First(),
+                                        axisX.GetNormal(),
+                                        axisY.GetNormal());
     }
 
     public XyFace TransformToLocal()
     {
-        var matrix = MatrixFactory.ToCoordinateSystem(_coord);
+        var matrix = TSG.MatrixFactory.ToCoordinateSystem(_coord);
 
         var localContour = Contour.TransformBy(matrix);
         var localHoles = Holes.Select(h => h.TransformBy(matrix));
@@ -46,8 +46,8 @@ public class Face
         return new XyFace(localContour, localHoles.ToArray());
     }
 
-    public Matrix TransformationFromCoordinateSystem()
+    public TSG.Matrix TransformationFromCoordinateSystem()
     {
-        return MatrixFactory.FromCoordinateSystem(_coord);
+        return TSG.MatrixFactory.FromCoordinateSystem(_coord);
     }
 }
