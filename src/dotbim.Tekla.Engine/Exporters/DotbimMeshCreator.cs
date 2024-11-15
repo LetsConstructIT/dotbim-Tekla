@@ -1,7 +1,5 @@
 ﻿using dotbim.Tekla.Engine.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Tekla.Structures.Geometry3d;
 
 namespace dotbim.Tekla.Engine.Exporters;

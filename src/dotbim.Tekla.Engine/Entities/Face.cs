@@ -10,7 +10,7 @@ public class Face
     public TSG.Vector Normal { get; }
     public Polygon Contour { get; }
     public IReadOnlyList<Polygon> Holes { get; }
-    private TSG.CoordinateSystem _coord;
+    private readonly TSG.CoordinateSystem _coord;
 
     public Face(Polygon contour, TSG.Vector normal) : this(contour, normal, Array.Empty<Polygon>())
     {

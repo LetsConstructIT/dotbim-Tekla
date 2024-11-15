@@ -1,36 +1,34 @@
 ﻿using dotbim.Tekla.Engine.Entities;
-using System;
 using System.Collections.Generic;
 
-namespace dotbim.Tekla.Engine.Transformers
+namespace dotbim.Tekla.Engine.Transformers;
+
+public class SolidTesselator
 {
-    public class SolidTesselator
+    private readonly IDomainToTrianglesTransformer _tesselator;
+
+    public SolidTesselator()
     {
-        private readonly IDomainToTrianglesTransformer _tesselator;
+        _tesselator = new LibTessDotNetDomainToXyTrianglesTransfomer();
+    }
 
-        public SolidTesselator()
+    public IReadOnlyList<Triangle> GetMesh(Solid solid)
+    {
+        var triangles = new List<Triangle>();
+
+        foreach (var face in solid.Faces)
         {
-            _tesselator = new LibTessDotNetDomainToXyTrianglesTransfomer();
-        }
+            var xyFace = face.TransformToLocal();
 
-        public IReadOnlyList<Triangle> GetMesh(Solid solid)
-        {
-            var triangles = new List<Triangle>();
+            var xyTriangles = _tesselator.Transform(xyFace);
 
-            foreach (var face in solid.Faces)
+            var transformationBack = face.TransformationFromCoordinateSystem();
+            foreach (var xyTriangle in xyTriangles)
             {
-                var xyFace = face.TransformToLocal();
-
-                var xyTriangles = _tesselator.Transform(xyFace);
-
-                var transformationBack = face.TransformationFromCoordinateSystem();
-                foreach (var xyTriangle in xyTriangles)
-                {
-                    triangles.Add(xyTriangle.Transform(transformationBack));
-                }
+                triangles.Add(xyTriangle.Transform(transformationBack));
             }
-
-            return triangles;
         }
+
+        return triangles;
     }
 }
