@@ -1,7 +1,7 @@
 ﻿using System;
 using TSD = Tekla.Structures.Dialog;
 
-namespace dotbim.Tekla.UI
+namespace dotbimTekla.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

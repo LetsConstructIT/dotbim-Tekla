@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace dotbim.Tekla.Engine.Extensions
+namespace dotbimTekla.Engine.Extensions
 {
     public static class LinqExtensions
     {

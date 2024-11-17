@@ -1,4 +1,5 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbim;
+using dotbimTekla.Engine.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
@@ -6,7 +7,7 @@ using TSM = Tekla.Structures.Model;
 using TSMUI = Tekla.Structures.Model.UI;
 using TSS = Tekla.Structures.Solid;
 
-namespace dotbim.Tekla.Engine.Transformers;
+namespace dotbimTekla.Engine.Transformers;
 
 public class TeklaToDomainTransformer
 {

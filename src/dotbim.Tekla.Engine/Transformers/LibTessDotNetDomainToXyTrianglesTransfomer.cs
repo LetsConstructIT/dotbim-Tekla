@@ -1,9 +1,9 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbimTekla.Engine.Entities;
 using System.Collections.Generic;
 using LibTessDotNet.Double;
 using TSG = Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.Engine.Transformers;
+namespace dotbimTekla.Engine.Transformers;
 
 public class LibTessDotNetDomainToXyTrianglesTransfomer : IDomainToTrianglesTransformer
 {

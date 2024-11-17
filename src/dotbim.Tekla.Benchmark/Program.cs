@@ -1,8 +1,8 @@
-﻿using dotbim.Tekla.Engine.ValueObjects;
-using dotbim.Tekla.Engine;
+﻿using dotbimTekla.Engine.ValueObjects;
+using dotbimTekla.Engine;
 using System;
 
-namespace dotbim.Tekla.Benchmark
+namespace dotbimTekla.Benchmark
 {
     internal class Program
     {

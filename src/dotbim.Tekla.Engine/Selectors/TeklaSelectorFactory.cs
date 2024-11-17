@@ -1,6 +1,6 @@
-﻿using dotbim.Tekla.Engine.ValueObjects;
+﻿using dotbimTekla.Engine.ValueObjects;
 
-namespace dotbim.Tekla.Engine.Selectors;
+namespace dotbimTekla.Engine.Selectors;
 
 public class TeklaSelectorFactory
 {

@@ -1,15 +1,15 @@
-﻿using dotbim.Tekla.Engine.Entities;
-using dotbim.Tekla.Engine.Exporters;
-using dotbim.Tekla.Engine.Extensions;
-using dotbim.Tekla.Engine.Selectors;
-using dotbim.Tekla.Engine.Transformers;
-using dotbim.Tekla.Engine.ValueObjects;
+﻿using dotbimTekla.Engine.Entities;
+using dotbimTekla.Engine.Exporters;
+using dotbimTekla.Engine.Extensions;
+using dotbimTekla.Engine.Selectors;
+using dotbimTekla.Engine.Transformers;
+using dotbimTekla.Engine.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TSM = Tekla.Structures.Model;
 
-namespace dotbim.Tekla.Engine;
+namespace dotbimTekla.Engine;
 
 public class Exporter
 {

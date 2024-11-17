@@ -1,4 +1,4 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbimTekla.Engine.Entities;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Tekla.Structures.Geometry3d;
 using TSG = Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class FaceTests

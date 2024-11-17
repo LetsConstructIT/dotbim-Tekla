@@ -1,7 +1,7 @@
 ﻿using System;
 using Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.Engine.Entities;
+namespace dotbimTekla.Engine.Entities;
 
 public class XyTriangle
 {

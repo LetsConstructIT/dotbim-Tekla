@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbim.Tekla.Engine", "dotbim.Tekla.Engine\dotbim.Tekla.Engine.csproj", "{4153E7A6-E549-47E4-B620-FC8409600B6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.Engine", "dotbim.Tekla.Engine\dotbimTekla.Engine.csproj", "{4153E7A6-E549-47E4-B620-FC8409600B6E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbim.Tekla.IntegrationTests", "dotbim.Tekla.IntegrationTests\dotbim.Tekla.IntegrationTests.csproj", "{99097F94-0C9B-4AA2-80F5-ED489BA46891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.IntegrationTests", "dotbim.Tekla.IntegrationTests\dotbimTekla.IntegrationTests.csproj", "{99097F94-0C9B-4AA2-80F5-ED489BA46891}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbim.Tekla.Benchmark", "dotbim.Tekla.Benchmark\dotbim.Tekla.Benchmark.csproj", "{74E4B7D4-944B-4524-A39C-EBD615BC85B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.Benchmark", "dotbim.Tekla.Benchmark\dotbimTekla.Benchmark.csproj", "{74E4B7D4-944B-4524-A39C-EBD615BC85B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbim.Tekla.UI", "dotbim.Tekla.UI\dotbim.Tekla.UI.csproj", "{CB78F4A5-483D-499C-8835-017CB90E3D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.UI", "dotbim.Tekla.UI\dotbimTekla.UI.csproj", "{CB78F4A5-483D-499C-8835-017CB90E3D50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

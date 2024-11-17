@@ -1,8 +1,9 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbim;
+using dotbimTekla.Engine.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace dotbim.Tekla.Engine.Exporters;
+namespace dotbimTekla.Engine.Exporters;
 
 public class DotbimElementCreator
 {

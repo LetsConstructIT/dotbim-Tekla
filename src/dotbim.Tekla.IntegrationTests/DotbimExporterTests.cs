@@ -1,7 +1,8 @@
-﻿using dotbim.Tekla.Engine.Entities;
-using dotbim.Tekla.Engine.Exporters;
-using dotbim.Tekla.Engine.TestHelpers;
-using dotbim.Tekla.Engine.Transformers;
+﻿using dotbim;
+using dotbimTekla.Engine.Entities;
+using dotbimTekla.Engine.Exporters;
+using dotbimTekla.Engine.TestHelpers;
+using dotbimTekla.Engine.Transformers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class DotbimExporterTests

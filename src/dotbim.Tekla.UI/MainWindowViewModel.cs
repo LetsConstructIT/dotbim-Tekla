@@ -1,4 +1,4 @@
-﻿namespace dotbim.Tekla.UI
+﻿namespace dotbimTekla.UI
 {
     public class MainWindowViewModel
     {

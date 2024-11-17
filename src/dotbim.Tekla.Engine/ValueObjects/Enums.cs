@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace dotbim.Tekla.Engine.ValueObjects;
+namespace dotbimTekla.Engine.ValueObjects;
 
 public enum ExportMode
 {

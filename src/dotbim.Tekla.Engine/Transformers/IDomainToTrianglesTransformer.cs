@@ -1,7 +1,7 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbimTekla.Engine.Entities;
 using System.Collections.Generic;
 
-namespace dotbim.Tekla.Engine.Transformers;
+namespace dotbimTekla.Engine.Transformers;
 
 public interface IDomainToTrianglesTransformer
 {

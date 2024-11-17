@@ -1,7 +1,7 @@
 ﻿using System;
 using Tekla.Structures.Model;
 
-namespace dotbim.Tekla.Engine;
+namespace dotbimTekla.Engine;
 
 public class TeklaProjectInfoQuery
 {

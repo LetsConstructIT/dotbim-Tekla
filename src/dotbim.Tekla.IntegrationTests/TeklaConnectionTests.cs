@@ -1,7 +1,7 @@
-using dotbim.Tekla.Engine;
+using dotbimTekla.Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class TeklaConnectionTests

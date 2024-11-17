@@ -1,8 +1,9 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbim;
+using dotbimTekla.Engine.Entities;
 using System.Collections.Generic;
 using Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.Engine.Exporters;
+namespace dotbimTekla.Engine.Exporters;
 
 public class DotbimMeshCreator
 {

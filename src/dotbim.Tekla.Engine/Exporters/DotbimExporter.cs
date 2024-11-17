@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using dotbim.Tekla.Engine.Entities;
+using dotbim;
+using dotbimTekla.Engine.Entities;
 
-namespace dotbim.Tekla.Engine.Exporters;
+namespace dotbimTekla.Engine.Exporters;
 
 public class DotbimExporter
 {

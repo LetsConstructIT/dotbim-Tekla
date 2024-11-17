@@ -1,9 +1,9 @@
-﻿using dotbim.Tekla.Engine.Entities;
+﻿using dotbimTekla.Engine.Entities;
 using System.Linq;
 using TSG = Tekla.Structures.Geometry3d;
 using TSMUI = Tekla.Structures.Model.UI;
 
-namespace dotbim.Tekla.Engine.TestHelpers;
+namespace dotbimTekla.Engine.TestHelpers;
 
 public class PolylineDrawer
 {

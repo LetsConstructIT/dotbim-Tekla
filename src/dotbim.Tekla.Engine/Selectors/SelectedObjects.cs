@@ -2,7 +2,7 @@
 using Tekla.Structures.Model;
 using TSMUI = Tekla.Structures.Model.UI;
 
-namespace dotbim.Tekla.Engine.Selectors;
+namespace dotbimTekla.Engine.Selectors;
 
 public class SelectedObjects : ITeklaSelector
 {

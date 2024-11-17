@@ -1,12 +1,12 @@
-﻿using dotbim.Tekla.Engine;
-using dotbim.Tekla.Engine.ValueObjects;
+﻿using dotbimTekla.Engine;
+using dotbimTekla.Engine.ValueObjects;
 using System.Collections.Generic;
 using Tekla.Structures.Plugins;
 
-namespace dotbim.Tekla.UI;
+namespace dotbimTekla.UI;
 
 [Plugin("dotbim Export")]
-[PluginUserInterface("dotbim.Tekla.UI.MainWindow")]
+[PluginUserInterface("dotbimTekla.UI.MainWindow")]
 [InputObjectDependency(InputObjectDependency.NOT_DEPENDENT)]
 public class DotbimPlugin : PluginBase
 {

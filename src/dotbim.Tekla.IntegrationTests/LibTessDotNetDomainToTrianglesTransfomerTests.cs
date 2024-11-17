@@ -1,10 +1,10 @@
-﻿using dotbim.Tekla.Engine.Entities;
-using dotbim.Tekla.Engine.Transformers;
+﻿using dotbimTekla.Engine.Entities;
+using dotbimTekla.Engine.Transformers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tekla.Structures.Geometry3d;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class LibTessDotNetDomainToTrianglesTransfomerTests

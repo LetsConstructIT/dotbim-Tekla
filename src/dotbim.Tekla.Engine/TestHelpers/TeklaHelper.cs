@@ -3,7 +3,7 @@ using Tekla.Structures;
 using Tekla.Structures.Model;
 using TSMUI = Tekla.Structures.Model.UI;
 
-namespace dotbim.Tekla.Engine.TestHelpers;
+namespace dotbimTekla.Engine.TestHelpers;
 
 public static class TeklaHelper
 {

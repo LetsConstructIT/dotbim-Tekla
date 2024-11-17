@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Tekla.Structures.Model;
 
-namespace dotbim.Tekla.Engine.Selectors;
+namespace dotbimTekla.Engine.Selectors;
 
 public interface ITeklaSelector
 {

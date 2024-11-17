@@ -1,9 +1,9 @@
-﻿using dotbim.Tekla.Engine.Selectors;
-using dotbim.Tekla.Engine.TestHelpers;
+﻿using dotbimTekla.Engine.Selectors;
+using dotbimTekla.Engine.TestHelpers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class TeklaSelectorTests

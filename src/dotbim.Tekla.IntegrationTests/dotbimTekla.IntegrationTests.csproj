@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dotbim.Tekla.Engine\dotbim.Tekla.Engine.csproj" />
+    <ProjectReference Include="..\dotbim.Tekla.Engine\dotbimTekla.Engine.csproj" />
   </ItemGroup>
 
 </Project>

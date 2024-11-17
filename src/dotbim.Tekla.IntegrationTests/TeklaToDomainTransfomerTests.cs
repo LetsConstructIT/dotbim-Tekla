@@ -1,10 +1,10 @@
-﻿using dotbim.Tekla.Engine.TestHelpers;
-using dotbim.Tekla.Engine.Transformers;
+﻿using dotbimTekla.Engine.TestHelpers;
+using dotbimTekla.Engine.Transformers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class TeklaToDomainTransfomerTests

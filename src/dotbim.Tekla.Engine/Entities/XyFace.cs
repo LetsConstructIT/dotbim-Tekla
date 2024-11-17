@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace dotbim.Tekla.Engine.Entities;
+namespace dotbimTekla.Engine.Entities;
 
 public class XyFace
 {

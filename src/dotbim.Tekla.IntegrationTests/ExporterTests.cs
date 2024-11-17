@@ -1,5 +1,5 @@
-﻿using dotbim.Tekla.Engine;
-using dotbim.Tekla.Engine.ValueObjects;
+﻿using dotbimTekla.Engine;
+using dotbimTekla.Engine.ValueObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dotbim.Tekla.IntegrationTests
+namespace dotbimTekla.IntegrationTests
 {
     [TestClass]
     public class ExporterTests
