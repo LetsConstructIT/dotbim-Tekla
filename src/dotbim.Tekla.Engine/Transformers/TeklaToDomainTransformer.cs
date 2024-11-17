@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
 using TSM = Tekla.Structures.Model;
+using TSMUI = Tekla.Structures.Model.UI;
 using TSS = Tekla.Structures.Solid;
 
 namespace dotbim.Tekla.Engine.Transformers;
@@ -22,6 +23,20 @@ public class TeklaToDomainTransformer
         }
 
         return new Solid(faces);
+    }
+
+    public Color GetColor(TSM.ModelObject modelObject)
+    {
+        var teklaColor = new TSMUI.Color();
+        TSMUI.ModelObjectVisualization.GetRepresentation(modelObject, ref teklaColor);
+
+        return new Color()
+        {
+            A = 255,
+            R = (int)(teklaColor.Red * 255),
+            G = (int)(teklaColor.Green * 255),
+            B = (int)(teklaColor.Blue * 255)
+        };
     }
 
     private Face Transform(TSS.Face teklaFace)
