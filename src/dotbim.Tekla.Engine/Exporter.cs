@@ -5,7 +5,7 @@ using dotbim.Tekla.Engine.Selectors;
 using dotbim.Tekla.Engine.Transformers;
 using dotbim.Tekla.Engine.ValueObjects;
 using System.Collections.Generic;
-using Tekla.Structures.Model;
+using System.Linq;
 using TSM = Tekla.Structures.Model;
 
 namespace dotbim.Tekla.Engine;
@@ -27,7 +27,7 @@ public class Exporter
 
     public void Export(ExportSettings settings)
     {
-        var modelObjects = _teklaSelectorFactory.Create(settings.Mode).Get();
+        var modelObjects = _teklaSelectorFactory.Create(settings.Mode).Get().ToList();
         if (modelObjects.None())
             return;
 
@@ -37,7 +37,7 @@ public class Exporter
         dotbimFile.Save(settings.FilePath);
     }
 
-    private List<ElementData> QueryElementData(IEnumerable<ModelObject> modelObjects)
+    private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects)
     {
         var elementsData = new List<ElementData>();
         foreach (var modelObject in modelObjects)
