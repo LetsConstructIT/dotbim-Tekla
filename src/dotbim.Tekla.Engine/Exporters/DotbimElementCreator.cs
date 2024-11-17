@@ -22,7 +22,7 @@ public class DotbimElementCreator
     {
         return new Element()
         {
-            Color = new Color() { A = 255, R = 255, G = 255, B = 0 },
+            Color = elementData.Color,
             Guid = Guid.NewGuid().ToString(),
             Vector = new Vector() { X=0, Y=0, Z=0},
             Rotation = new Rotation() { Qx = 0, Qy=0, Qz=0, Qw=1},

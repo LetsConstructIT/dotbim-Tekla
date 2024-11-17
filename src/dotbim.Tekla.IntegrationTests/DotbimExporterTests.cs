@@ -26,6 +26,7 @@ namespace dotbim.Tekla.IntegrationTests
                         new Triangle(new Point(0,0,0), new Point(10,0,0), new Point(0,5,0)),
                         new Triangle(new Point(10,0,0), new Point(0,5,0), new Point(10,5,0)),
                     },
+                    new Color(),
                     new Dictionary<string,string>())
             };
 
@@ -47,6 +48,7 @@ namespace dotbim.Tekla.IntegrationTests
             {
                 new ElementData(
                     triangles,
+                    new Color(),
                     new Dictionary<string,string>())
             };
 
