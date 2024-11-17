@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+      <TeklaVersion>2024.0</TeklaVersion>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TSAppConfigPatcherTask" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\dotbim.Tekla.Engine\dotbim.Tekla.Engine.csproj" />
+  </ItemGroup>
+
+</Project>

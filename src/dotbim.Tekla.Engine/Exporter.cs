@@ -4,6 +4,7 @@ using dotbim.Tekla.Engine.Extensions;
 using dotbim.Tekla.Engine.Selectors;
 using dotbim.Tekla.Engine.Transformers;
 using dotbim.Tekla.Engine.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TSM = Tekla.Structures.Model;
@@ -27,14 +28,29 @@ public class Exporter
 
     public void Export(ExportSettings settings)
     {
+        var times = new List<long>();
+
+        var sw = System.Diagnostics.Stopwatch.StartNew();
         var modelObjects = _teklaSelectorFactory.Create(settings.Mode).Get().ToList();
         if (modelObjects.None())
             return;
 
+        times.Add(sw.ElapsedMilliseconds);
+        sw.Restart();
+
         var elementsData = QueryElementData(modelObjects);
+
+        times.Add(sw.ElapsedMilliseconds);
+        sw.Restart();
 
         var dotbimFile = _dotbimExporter.CreateDotbim(elementsData);
         dotbimFile.Save(settings.FilePath);
+
+        times.Add(sw.ElapsedMilliseconds);
+        sw.Stop();
+        var message = $"\nIt took {string.Join(" ms, ",times)} ms. Summary: {times.Sum()} ms.";
+        Console.WriteLine(message);
+        System.IO.File.AppendAllText($"C:\\temp\\benchmark.txt", message);
     }
 
     private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects)
