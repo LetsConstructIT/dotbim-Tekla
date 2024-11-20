@@ -50,11 +50,62 @@ public class PropertySetBuilder
 
 public class IfcPropertiesDictionary
 {
-    private readonly Dictionary<IncludeEntityType, List<IfcProperties>> _dictionary;
+    private readonly Dictionary<IncludeEntityType, EntityQueryScope> _dictionary;
 
     public IfcPropertiesDictionary(Dictionary<IncludeEntityType, List<IfcProperties>> dictionary)
     {
-        _dictionary = dictionary;
+        _dictionary = TransformRawDictionary(dictionary);
+    }
+
+    private Dictionary<IncludeEntityType, EntityQueryScope> TransformRawDictionary(Dictionary<IncludeEntityType, List<IfcProperties>> dictionary)
+    {
+        var result = new Dictionary<IncludeEntityType, EntityQueryScope>();
+
+        foreach (var keyValue in dictionary)
+        {
+            result[keyValue.Key] = Transform(keyValue.Value);
+        }
+        return result;
+    }
+
+    private EntityQueryScope Transform(List<IfcProperties> properties)
+    {
+        var udas = properties.SelectMany(p => p.Properties.Where(r => r.ParameterType == ParameterType.Uda));
+        var templates = properties.SelectMany(p => p.Properties.Where(r => r.ParameterType == ParameterType.Template));
+
+        return new EntityQueryScope(properties, GetParameters(templates), GetParameters(udas));
+    }
+
+    private QueryParameters GetParameters(IEnumerable<PropertySingle> properties)
+    {
+        var stringNames = new ArrayList();
+        var doubleNames = new ArrayList();
+        var integerNames = new ArrayList();
+        foreach (var item in properties.GroupBy(p => p.ParameterValueType))
+        {
+            switch (item.Key)
+            {
+                case ParameterValueType.String:
+                    AddRange(stringNames, item.Select(i => i.TeklaName));
+                    break;
+                case ParameterValueType.Double:
+                    AddRange(doubleNames, item.Select(i => i.TeklaName));
+                    break;
+                case ParameterValueType.Integer:
+                    AddRange(integerNames, item.Select(i => i.TeklaName));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return new QueryParameters(stringNames, doubleNames, integerNames);
+
+        void AddRange(ArrayList arrayList, IEnumerable<string> toAdd)
+        {
+            foreach (var item in toAdd)
+                arrayList.Add(item);
+        }
     }
 }
 
@@ -99,6 +150,8 @@ public record IfcProperties(string PSetName, IReadOnlyList<PropertySingle> Prope
 
 public record QueryParameters(ArrayList StringNames, ArrayList DoubleNames, ArrayList IntegerNames);
 
+public record EntityQueryScope(List<IfcProperties> Properties, QueryParameters Templates, QueryParameters Udas);
+
 public enum ParameterType
 {
     Uda,
@@ -107,6 +160,6 @@ public enum ParameterType
 public enum ParameterValueType
 {
     String,
-    Integer,
-    Double
+    Double,
+    Integer
 }
