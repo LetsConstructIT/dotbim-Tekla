@@ -11,12 +11,12 @@ namespace dotbimTekla.Engine.Transformers;
 public class TeklaToDomainTransformer
 {
     private readonly TeklaGeometryTransformer _geometryTransformer;
-    private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
+    private readonly TeklaPropertiesExporter _teklaPropertiesExporter;
 
     public TeklaToDomainTransformer()
     {
         _geometryTransformer = new TeklaGeometryTransformer();
-        _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
+        _teklaPropertiesExporter = new TeklaPropertiesExporter();
     }
 
     public Solid Transform(TSM.Part part)
@@ -38,6 +38,6 @@ public class TeklaToDomainTransformer
 
     public Dictionary<string, string> GetMetadata(TSM.Part part)
     {
-        return new Dictionary<string, string>();
+        return _teklaPropertiesExporter.ReadProperties(part);
     }
 }
