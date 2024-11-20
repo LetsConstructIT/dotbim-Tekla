@@ -1,4 +1,6 @@
 ﻿using dotbimTekla.Engine.Transformers.Properties;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,10 +8,11 @@ namespace dotbimTekla.Engine.Exporters.Properties;
 public class PropertySetBuilder
 {
     private readonly XmlFileSerializer _xmlFileSerializer;
-
+    private readonly PropertySingleFactory _propertySingleFactory;
     public PropertySetBuilder()
     {
         _xmlFileSerializer = new();
+        _propertySingleFactory = new();
     }
 
     public IfcPropertiesDictionary? GetNeededProperties(string filePath)
@@ -27,7 +30,9 @@ public class PropertySetBuilder
 
             var entityTypes = bindings.Rules.Select(r => r.entityType).ToList();
             var properties = propertySet.Properties.Property.OfType<PropertySingleValueType>()
-                .Where(p => !p.isIgnored).ToList();
+                .Where(p => !p.isIgnored)
+                .Select(_propertySingleFactory.Construct)
+                .ToList();
 
             var ifcProperties = new IfcProperties(propertySet.Name, properties);
             foreach (var entityType in entityTypes)
@@ -53,6 +58,55 @@ public class IfcPropertiesDictionary
     }
 }
 
+public class PropertySingleFactory
+{
+    public PropertySingle Construct(PropertySingleValueType propertySingleValueType)
+    {
+        var outputName = propertySingleValueType.Name;
+        return propertySingleValueType.PropertyValue switch
+        {
+            StringValueType stringValueType => new(outputName, GetTeklaName(stringValueType.GetValue), GetParameterType(stringValueType.GetValue), ParameterValueType.String),
+            IntegerValueType integerValueType => new(outputName, GetTeklaName(integerValueType.GetValue), GetParameterType(integerValueType.GetValue), ParameterValueType.Integer),
+            MeasureValueType measureValueType => new(outputName, GetTeklaName(measureValueType.GetValue), GetParameterType(measureValueType.GetValue), ParameterValueType.Double),
+            _ => new(outputName, string.Empty, ParameterType.Uda, ParameterValueType.String)
+        };
+    }
 
+    private string GetTeklaName(VariableType variableType)
+    {
+        return variableType switch
+        {
+            UdaVariableType uda => uda.UdaName,
+            TemplateVariableType template => template.TemplateName,
+            _ => throw new ArgumentOutOfRangeException(nameof(variableType)),
+        };
+    }
 
-public record IfcProperties(string PSetName, IReadOnlyList<PropertySingleValueType> Properties);
+    private ParameterType GetParameterType(VariableType variableType)
+    {
+        return variableType switch
+        {
+            UdaVariableType => ParameterType.Uda,
+            TemplateVariableType => ParameterType.Template,
+            _ => throw new ArgumentOutOfRangeException(nameof(variableType)),
+        };
+    }
+}
+
+public record PropertySingle(string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
+
+public record IfcProperties(string PSetName, IReadOnlyList<PropertySingle> Properties);
+
+public record QueryParameters(ArrayList StringNames, ArrayList DoubleNames, ArrayList IntegerNames);
+
+public enum ParameterType
+{
+    Uda,
+    Template
+}
+public enum ParameterValueType
+{
+    String,
+    Integer,
+    Double
+}

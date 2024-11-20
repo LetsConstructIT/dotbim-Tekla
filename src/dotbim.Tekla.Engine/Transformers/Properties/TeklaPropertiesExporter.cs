@@ -16,8 +16,11 @@ internal class TeklaPropertiesExporter
     internal Dictionary<string, string> ReadProperties(Part part, IfcPropertiesDictionary? ifcPropertiesDictionary)
     {
         if (ifcPropertiesDictionary is null)
-            return new Dictionary<string, string>();
+            return [];
 
+        var entityType = _ifcEntityTypeQuery.GetEntityType(part);
+        if (!entityType.HasValue)
+            return [];
 
 
         return new Dictionary<string, string>();
