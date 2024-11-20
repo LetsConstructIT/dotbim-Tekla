@@ -13,7 +13,7 @@ namespace dotbimTekla.Benchmark
 
         private static void ExportSample()
         {
-            var settings = new ExportSettings(ExportMode.Selection, @"C:\temp\test.bim");
+            var settings = new ExportSettings(ExportMode.Selection, @"C:\temp\test.bim", "Tekla PowerFab");
 
             var sut = new Exporter();
             sut.Export(settings);
