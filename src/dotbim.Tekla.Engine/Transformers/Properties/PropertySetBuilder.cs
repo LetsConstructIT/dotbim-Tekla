@@ -57,6 +57,14 @@ public class IfcPropertiesDictionary
         _dictionary = TransformRawDictionary(dictionary);
     }
 
+    public EntityQueryScope? QueryScope(IncludeEntityType entityType)
+    {
+        if (_dictionary.ContainsKey(entityType))
+            return _dictionary[entityType];
+        else
+            return null;
+    }
+
     private Dictionary<IncludeEntityType, EntityQueryScope> TransformRawDictionary(Dictionary<IncludeEntityType, List<IfcProperties>> dictionary)
     {
         var result = new Dictionary<IncludeEntityType, EntityQueryScope>();
