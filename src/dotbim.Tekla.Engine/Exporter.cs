@@ -40,6 +40,7 @@ public class Exporter
 
         times.Add(sw.ElapsedMilliseconds);
         sw.Restart();
+
         var ifcPropertiesDictionary = _propertySetBuilder.GetNeededProperties(settings.PropertSetSettingsName);
 
         times.Add(sw.ElapsedMilliseconds);
