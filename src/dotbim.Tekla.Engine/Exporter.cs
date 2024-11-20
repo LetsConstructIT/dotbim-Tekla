@@ -1,5 +1,6 @@
 ﻿using dotbimTekla.Engine.Entities;
 using dotbimTekla.Engine.Exporters;
+using dotbimTekla.Engine.Exporters.Properties;
 using dotbimTekla.Engine.Extensions;
 using dotbimTekla.Engine.Selectors;
 using dotbimTekla.Engine.Transformers;
@@ -17,6 +18,7 @@ public class Exporter
     private readonly TeklaToDomainTransformer _teklaToDomainTransformer;
     private readonly SolidTesselator _solidTesselator;
     private readonly DotbimExporter _dotbimExporter;
+    private readonly PropertySetBuilder _propertySetBuilder;
 
     public Exporter()
     {
@@ -24,6 +26,7 @@ public class Exporter
         _teklaToDomainTransformer = new TeklaToDomainTransformer();
         _solidTesselator = new SolidTesselator();
         _dotbimExporter = new DotbimExporter();
+        _propertySetBuilder = new PropertySetBuilder();
     }
 
     public void Export(ExportSettings settings)
@@ -37,8 +40,12 @@ public class Exporter
 
         times.Add(sw.ElapsedMilliseconds);
         sw.Restart();
+        var ifcPropertiesDictionary = _propertySetBuilder.GetNeededProperties(settings.PropertSetSettingsName);
 
-        var elementsData = QueryElementData(modelObjects);
+        times.Add(sw.ElapsedMilliseconds);
+        sw.Restart();
+
+        var elementsData = QueryElementData(modelObjects, ifcPropertiesDictionary);
 
         times.Add(sw.ElapsedMilliseconds);
         sw.Restart();
@@ -53,7 +60,7 @@ public class Exporter
         System.IO.File.AppendAllText($"C:\\temp\\benchmark.txt", message);
     }
 
-    private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects)
+    private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects, IfcPropertiesDictionary? ifcPropertiesDictionary)
     {
         var elementsData = new List<ElementData>();
         foreach (var modelObject in modelObjects)
@@ -64,7 +71,7 @@ public class Exporter
                 var mesh = _solidTesselator.GetMesh(solid);
 
                 var color = _teklaToDomainTransformer.GetColor(part);
-                var metadata = _teklaToDomainTransformer.GetMetadata(part);
+                var metadata = _teklaToDomainTransformer.GetMetadata(part, ifcPropertiesDictionary);
                 var elementData = new ElementData(mesh, color, part.Identifier.GUID, part.Name, metadata);
                 elementsData.Add(elementData);
             }

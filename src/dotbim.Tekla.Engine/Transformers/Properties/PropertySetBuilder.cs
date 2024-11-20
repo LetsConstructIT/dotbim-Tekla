@@ -1,10 +1,8 @@
-﻿using System;
+﻿using dotbimTekla.Engine.Transformers.Properties;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 
-namespace dotbimTekla.Engine.Transformers.Properties;
+namespace dotbimTekla.Engine.Exporters.Properties;
 public class PropertySetBuilder
 {
     private readonly XmlFileSerializer _xmlFileSerializer;

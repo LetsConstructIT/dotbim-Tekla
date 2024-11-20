@@ -1,5 +1,6 @@
 ﻿using dotbim;
 using dotbimTekla.Engine.Entities;
+using dotbimTekla.Engine.Exporters.Properties;
 using dotbimTekla.Engine.Transformers.Properties;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,6 @@ public class TeklaToDomainTransformer
         };
     }
 
-    public Dictionary<string, string> GetMetadata(TSM.Part part)
-    {
-        return _teklaPropertiesExporter.ReadProperties(part);
-    }
+    public Dictionary<string, string> GetMetadata(TSM.Part part, IfcPropertiesDictionary? ifcPropertiesDictionary)
+        => _teklaPropertiesExporter.ReadProperties(part, ifcPropertiesDictionary);
 }

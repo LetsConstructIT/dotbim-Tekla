@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dotbimTekla.Engine.Exporters.Properties;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tekla.Structures.Model;
@@ -12,8 +13,13 @@ internal class TeklaPropertiesExporter
         _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
     }
 
-    internal Dictionary<string, string> ReadProperties(Part part)
+    internal Dictionary<string, string> ReadProperties(Part part, IfcPropertiesDictionary? ifcPropertiesDictionary)
     {
+        if (ifcPropertiesDictionary is null)
+            return new Dictionary<string, string>();
+
+
+
         return new Dictionary<string, string>();
     }
 }
