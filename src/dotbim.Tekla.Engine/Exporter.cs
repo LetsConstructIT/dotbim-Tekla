@@ -1,6 +1,5 @@
 ﻿using dotbimTekla.Engine.Entities;
 using dotbimTekla.Engine.Exporters;
-using dotbimTekla.Engine.Exporters.Properties;
 using dotbimTekla.Engine.Extensions;
 using dotbimTekla.Engine.Selectors;
 using dotbimTekla.Engine.Transformers;

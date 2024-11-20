@@ -2,7 +2,7 @@
 using System.Linq;
 using Tekla.Structures.Model;
 
-namespace dotbimTekla.Engine.Exporters.Properties;
+namespace dotbimTekla.Engine.Transformers.Properties;
 public interface IIfcEntityTypeQuery
 {
     IncludeEntityType? GetEntityType(ModelObject modelObject);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace dotbimTekla.Engine.Exporters.Properties;
+namespace dotbimTekla.Engine.Transformers.Properties;
 public class PropertySetBuilder
 {
     private readonly XmlFileSerializer _xmlFileSerializer;

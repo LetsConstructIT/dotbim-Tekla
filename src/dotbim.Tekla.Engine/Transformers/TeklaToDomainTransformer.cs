@@ -1,6 +1,6 @@
 ﻿using dotbim;
 using dotbimTekla.Engine.Entities;
-using dotbimTekla.Engine.Exporters.Properties;
+using dotbimTekla.Engine.Transformers.Properties;
 using System;
 using System.Collections.Generic;
 using TSM = Tekla.Structures.Model;

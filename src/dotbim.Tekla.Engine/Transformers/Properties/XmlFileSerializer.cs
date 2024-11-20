@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace dotbimTekla.Engine.Exporters.Properties;
+namespace dotbimTekla.Engine.Transformers.Properties;
 
 public class XmlFileSerializer
 {
