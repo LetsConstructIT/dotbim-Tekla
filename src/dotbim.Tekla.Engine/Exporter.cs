@@ -48,7 +48,7 @@ public class Exporter
 
         times.Add(sw.ElapsedMilliseconds);
         sw.Stop();
-        var message = $"\nIt took {string.Join(" ms, ",times)} ms. Summary: {times.Sum()} ms.";
+        var message = $"\nIt took {string.Join(" ms, ", times)} ms. Summary: {times.Sum()} ms.";
         Console.WriteLine(message);
         System.IO.File.AppendAllText($"C:\\temp\\benchmark.txt", message);
     }
@@ -64,7 +64,7 @@ public class Exporter
                 var mesh = _solidTesselator.GetMesh(solid);
 
                 var color = _teklaToDomainTransformer.GetColor(part);
-                var elementData = new ElementData(mesh, color, new Dictionary<string, string>());
+                var elementData = new ElementData(mesh, color, part.Identifier.GUID, new Dictionary<string, string>());
                 elementsData.Add(elementData);
             }
         }
