@@ -23,11 +23,13 @@ public class DotbimElementCreator
     {
         return new Element()
         {
+            Type = elementData.Name,
             Color = elementData.Color,
             Guid = elementData.Guid.ToString(),
             Vector = new Vector() { X = 0, Y = 0, Z = 0 },
             Rotation = new Rotation() { Qx = 0, Qy = 0, Qz = 0, Qw = 1 },
-            MeshId = meshId
+            MeshId = meshId,
+            Info = elementData.Metadata
         };
     }
 }

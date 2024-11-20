@@ -28,6 +28,8 @@ namespace dotbimTekla.IntegrationTests
                         new Triangle(new Point(10,0,0), new Point(0,5,0), new Point(10,5,0)),
                     },
                     new Color(),
+                    Guid.NewGuid(),
+                    "name",
                     new Dictionary<string,string>())
             };
 
@@ -50,6 +52,8 @@ namespace dotbimTekla.IntegrationTests
                 new ElementData(
                     triangles,
                     new Color(),
+                    Guid.NewGuid(),
+                    "name",
                     new Dictionary<string,string>())
             };
 
