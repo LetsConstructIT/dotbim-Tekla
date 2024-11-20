@@ -1,6 +1,7 @@
 ﻿using dotbim;
 using dotbimTekla.Engine.Entities;
 using dotbimTekla.Engine.Exporters.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
@@ -20,6 +21,7 @@ public class TeklaToDomainTransformer
         _geometryTransformer = new TeklaGeometryTransformer();
         _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
     }
+
     public Solid Transform(TSM.Part part)
         => _geometryTransformer.Transform(part);
 
@@ -35,6 +37,11 @@ public class TeklaToDomainTransformer
             G = (int)(teklaColor.Green * 255),
             B = (int)(teklaColor.Blue * 255)
         };
+    }
+
+    public Dictionary<string, string> GetMetadata(TSM.Part part)
+    {
+        return new Dictionary<string, string>();
     }
 }
 

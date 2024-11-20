@@ -65,7 +65,8 @@ public class Exporter
                 var mesh = _solidTesselator.GetMesh(solid);
 
                 var color = _teklaToDomainTransformer.GetColor(part);
-                var elementData = new ElementData(mesh, color, part.Identifier.GUID, part.Name, new Dictionary<string, string>());
+                var metadata = _teklaToDomainTransformer.GetMetadata(part);
+                var elementData = new ElementData(mesh, color, part.Identifier.GUID, part.Name, metadata);
                 elementsData.Add(elementData);
             }
         }
