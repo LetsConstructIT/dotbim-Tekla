@@ -1,5 +1,6 @@
 ﻿using dotbimTekla.Engine.Entities;
 using dotbimTekla.Engine.Exporters;
+using dotbimTekla.Engine.Exporters.Properties;
 using dotbimTekla.Engine.Extensions;
 using dotbimTekla.Engine.Selectors;
 using dotbimTekla.Engine.Transformers;
@@ -17,6 +18,7 @@ public class Exporter
     private readonly TeklaToDomainTransformer _teklaToDomainTransformer;
     private readonly SolidTesselator _solidTesselator;
     private readonly DotbimExporter _dotbimExporter;
+    private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
 
     public Exporter()
     {
@@ -24,6 +26,7 @@ public class Exporter
         _teklaToDomainTransformer = new TeklaToDomainTransformer();
         _solidTesselator = new SolidTesselator();
         _dotbimExporter = new DotbimExporter();
+        _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
     }
 
     public void Export(ExportSettings settings)
