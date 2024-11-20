@@ -11,20 +11,14 @@ namespace dotbimTekla.Engine.Transformers;
 
 public class TeklaToDomainTransformer
 {
-    public Solid Transform(TSM.Part part)
+    private readonly TeklaGeometryTransformer _geometryTransformer;
+
+    public TeklaToDomainTransformer()
     {
-        var faces = new List<Face>();
-        var teklaSolid = part.GetSolid();
-
-        var faceEnum = teklaSolid.GetFaceEnumerator();
-        while (faceEnum.MoveNext())
-        {
-            var face = Transform(faceEnum.Current);
-            faces.Add(face);
-        }
-
-        return new Solid(faces);
+        _geometryTransformer = new TeklaGeometryTransformer();
     }
+    public Solid Transform(TSM.Part part)
+        => _geometryTransformer.Transform(part);
 
     public Color GetColor(TSM.ModelObject modelObject)
     {
@@ -38,6 +32,24 @@ public class TeklaToDomainTransformer
             G = (int)(teklaColor.Green * 255),
             B = (int)(teklaColor.Blue * 255)
         };
+    }
+}
+
+public class TeklaGeometryTransformer
+{
+    public Solid Transform(TSM.Part part)
+    {
+        var faces = new List<Face>();
+        var teklaSolid = part.GetSolid();
+
+        var faceEnum = teklaSolid.GetFaceEnumerator();
+        while (faceEnum.MoveNext())
+        {
+            var face = Transform(faceEnum.Current);
+            faces.Add(face);
+        }
+
+        return new Solid(faces);
     }
 
     private Face Transform(TSS.Face teklaFace)
