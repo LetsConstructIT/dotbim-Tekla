@@ -1,5 +1,6 @@
 ﻿using dotbim;
 using dotbimTekla.Engine.Entities;
+using dotbimTekla.Engine.Exporters.Properties;
 using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
@@ -12,10 +13,12 @@ namespace dotbimTekla.Engine.Transformers;
 public class TeklaToDomainTransformer
 {
     private readonly TeklaGeometryTransformer _geometryTransformer;
+    private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
 
     public TeklaToDomainTransformer()
     {
         _geometryTransformer = new TeklaGeometryTransformer();
+        _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
     }
     public Solid Transform(TSM.Part part)
         => _geometryTransformer.Transform(part);
