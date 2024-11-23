@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Tekla.Structures.Model;
@@ -34,14 +35,16 @@ internal class TeklaPropertiesExporter
         return result;
     }
 
-    private string QueryTemplate(Dictionary<string, string> result, ModelObject part, QueryParameters queryParameters, List<IfcProperties> properties)
+    private void QueryTemplate(Dictionary<string, string> result, ModelObject part, QueryParameters queryParameters, List<IfcProperties> properties)
     {
-        if (queryParameters.DoubleNames.Count > 0)
+        var propertyNames = queryParameters.DoubleNames;
+
+        if (propertyNames.Count > 0)
         {
             var values = new Hashtable();
-            part.GetDoubleReportProperties(queryParameters.DoubleNames, ref values);
+            part.GetDoubleReportProperties(propertyNames, ref values);
 
-            foreach (string propertyName in queryParameters.DoubleNames)
+            foreach (string propertyName in propertyNames)
             {
                 if (!values.ContainsKey(propertyName))
                     continue;
@@ -54,12 +57,10 @@ internal class TeklaPropertiesExporter
 
                 foreach (var pSet in pSets)
                 {
-                    result[ConstructKey(pSet.PSetName, propertyName)] = value.ToString();
+                    result[ConstructKey(pSet.PSetName, propertyName)] = value.ToString(CultureInfo.InvariantCulture);
                 }
             }
         }
-
-        return string.Empty;
     }
 
     private string ConstructKey(string propertySet, string property)
