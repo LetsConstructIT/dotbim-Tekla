@@ -25,6 +25,8 @@ public class IfcEntityTypeQuery2022 : IIfcEntityTypeQuery
             return null;
 
         var entityType = entityOverride.Split('.').First();
+        if (entityType == "Auto")
+            entityType = "IfcBuildingElementProxy";
 
         return (IncludeEntityType)Enum.Parse(_resultType, entityType);
     }
