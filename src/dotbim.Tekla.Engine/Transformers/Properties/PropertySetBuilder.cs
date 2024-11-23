@@ -31,7 +31,7 @@ public class PropertySetBuilder
             var entityTypes = bindings.Rules.Select(r => r.entityType).ToList();
             var properties = propertySet.Properties.Property.OfType<PropertySingleValueType>()
                 .Where(p => !p.isIgnored)
-                .Select(_propertySingleFactory.Construct)
+                .Select(p => _propertySingleFactory.Construct(p, new PSetName(propertySet.Name)))
                 .ToList();
 
             var ifcProperties = new IfcProperties(new(propertySet.Name), properties);
@@ -119,15 +119,15 @@ public class IfcPropertiesDictionary
 
 public class PropertySingleFactory
 {
-    public PropertySingle Construct(PropertySingleValueType propertySingleValueType)
+    public PropertySingle Construct(PropertySingleValueType propertySingleValueType, PSetName propertySetName)
     {
         var outputName = propertySingleValueType.Name;
         return propertySingleValueType.PropertyValue switch
         {
-            StringValueType stringValueType => new(outputName, GetTeklaName(stringValueType.GetValue), GetParameterType(stringValueType.GetValue), ParameterValueType.String),
-            IntegerValueType integerValueType => new(outputName, GetTeklaName(integerValueType.GetValue), GetParameterType(integerValueType.GetValue), ParameterValueType.Integer),
-            MeasureValueType measureValueType => new(outputName, GetTeklaName(measureValueType.GetValue), GetParameterType(measureValueType.GetValue), ParameterValueType.Double),
-            _ => new(outputName, string.Empty, ParameterType.Uda, ParameterValueType.String)
+            StringValueType stringValueType => new(propertySetName, outputName, GetTeklaName(stringValueType.GetValue), GetParameterType(stringValueType.GetValue), ParameterValueType.String),
+            IntegerValueType integerValueType => new(propertySetName, outputName, GetTeklaName(integerValueType.GetValue), GetParameterType(integerValueType.GetValue), ParameterValueType.Integer),
+            MeasureValueType measureValueType => new(propertySetName, outputName, GetTeklaName(measureValueType.GetValue), GetParameterType(measureValueType.GetValue), ParameterValueType.Double),
+            _ => new(propertySetName, outputName, string.Empty, ParameterType.Uda, ParameterValueType.String)
         };
     }
 
@@ -152,7 +152,7 @@ public class PropertySingleFactory
     }
 }
 
-public record PropertySingle(string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
+public record PropertySingle(PSetName PSet, string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
 
 public record IfcProperties(PSetName PSetName, IReadOnlyList<PropertySingle> Properties);
 
