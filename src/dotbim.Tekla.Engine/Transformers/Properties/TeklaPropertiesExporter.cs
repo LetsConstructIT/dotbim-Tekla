@@ -3,14 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using Tekla.Structures.Model;
 
 namespace dotbimTekla.Engine.Transformers.Properties;
 internal class TeklaPropertiesExporter
 {
     private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
+
+    private readonly Func<object, string> _convertDouble = (value => ((double)value).ToString(CultureInfo.InvariantCulture));
+    private readonly Func<object, string> _convertInt = (value => ((int)value).ToString(CultureInfo.InvariantCulture));
+    private readonly Func<object, string> _convertString = (value => (string)value);
+
     public TeklaPropertiesExporter()
     {
         _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
@@ -37,13 +40,22 @@ internal class TeklaPropertiesExporter
 
     private void QueryTemplate(Dictionary<string, string> result, ModelObject part, QueryParameters queryParameters)
     {
-        var singleTypeQuery = queryParameters.DoubleNames;
+        static void doubleQuery(ModelObject modelObject, ArrayList queryNames, Hashtable result) => modelObject.GetDoubleReportProperties(queryNames, ref result);
+        static void intQuery(ModelObject modelObject, ArrayList queryNames, Hashtable result) => modelObject.GetIntegerReportProperties(queryNames, ref result);
+        static void stringQuery(ModelObject modelObject, ArrayList queryNames, Hashtable result) => modelObject.GetStringReportProperties(queryNames, ref result);
 
+        SingleTypeQuery(result, part, queryParameters.DoubleNames, _convertDouble, doubleQuery);
+        SingleTypeQuery(result, part, queryParameters.IntegerNames, _convertInt, intQuery);
+        SingleTypeQuery(result, part, queryParameters.StringNames, _convertString, stringQuery);
+    }
+
+    private void SingleTypeQuery(Dictionary<string, string> result, ModelObject part, SingleTypeQuery singleTypeQuery, Func<object, string> resultConversion, Action<ModelObject, ArrayList, Hashtable> teklaQuery)
+    {
         if (singleTypeQuery.QueryNames.Count == 0)
             return;
 
         var values = new Hashtable();
-        part.GetDoubleReportProperties(singleTypeQuery.QueryNames, ref values);
+        teklaQuery(part, singleTypeQuery.QueryNames, values);
 
         if (values.Count == 0)
             return;
@@ -53,10 +65,11 @@ internal class TeklaPropertiesExporter
             if (!values.ContainsKey(property.TeklaName))
                 continue;
 
-            var value = (double)values[property.TeklaName];
-            result[ConstructKey(property)] = value.ToString(CultureInfo.InvariantCulture);
+            result[ConstructKey(property)] = resultConversion(values[property.TeklaName]);
         }
     }
+
+    private record QueryDetails(Action<ModelObject, ArrayList, Hashtable> TeklaQuery, Func<object, string> ResultFormatter);
 
     private string ConstructKey(PropertySingle property)
         => $"{property.PSet.Name}.{property.OutputName}";
