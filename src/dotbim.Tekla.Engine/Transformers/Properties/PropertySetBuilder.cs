@@ -21,7 +21,7 @@ public class PropertySetBuilder
         if (propertySetConfiguration is null)
             return null;
 
-        var dictionary = new Dictionary<IncludeEntityType, List<IfcProperties>>();
+        var dictionary = new Dictionary<IncludeEntityType, List<PropertySingle>>();
         foreach (var propertySet in propertySetConfiguration.PropertySetDefinitions.Where(d => !d.isIgnored))
         {
             var bindings = propertySetConfiguration.PropertySetBindings.FirstOrDefault(b => b.referenceId == propertySet.referenceId); ;
@@ -34,13 +34,12 @@ public class PropertySetBuilder
                 .Select(p => _propertySingleFactory.Construct(p, new PSetName(propertySet.Name)))
                 .ToList();
 
-            var ifcProperties = new IfcProperties(new(propertySet.Name), properties);
             foreach (var entityType in entityTypes)
             {
                 if (dictionary.ContainsKey(entityType))
-                    dictionary[entityType].Add(ifcProperties);
+                    dictionary[entityType].AddRange(properties);
                 else
-                    dictionary[entityType] = new List<IfcProperties>() { ifcProperties };
+                    dictionary[entityType] = properties;
             }
         }
 
@@ -52,7 +51,7 @@ public class IfcPropertiesDictionary
 {
     private readonly Dictionary<IncludeEntityType, EntityQueryScope> _dictionary;
 
-    public IfcPropertiesDictionary(Dictionary<IncludeEntityType, List<IfcProperties>> dictionary)
+    public IfcPropertiesDictionary(Dictionary<IncludeEntityType, List<PropertySingle>> dictionary)
     {
         _dictionary = TransformRawDictionary(dictionary);
     }
@@ -65,7 +64,7 @@ public class IfcPropertiesDictionary
             return null;
     }
 
-    private Dictionary<IncludeEntityType, EntityQueryScope> TransformRawDictionary(Dictionary<IncludeEntityType, List<IfcProperties>> dictionary)
+    private Dictionary<IncludeEntityType, EntityQueryScope> TransformRawDictionary(Dictionary<IncludeEntityType, List<PropertySingle>> dictionary)
     {
         var result = new Dictionary<IncludeEntityType, EntityQueryScope>();
 
@@ -76,43 +75,46 @@ public class IfcPropertiesDictionary
         return result;
     }
 
-    private EntityQueryScope Transform(List<IfcProperties> properties)
+    private EntityQueryScope Transform(List<PropertySingle> properties)
     {
-        var udas = properties.SelectMany(p => p.Properties.Where(r => r.ParameterType == ParameterType.Uda));
-        var templates = properties.SelectMany(p => p.Properties.Where(r => r.ParameterType == ParameterType.Template));
+        var udas = properties.Where(p => p.ParameterType == ParameterType.Uda);
+        var templates = properties.Where(p => p.ParameterType == ParameterType.Template);
 
-        return new EntityQueryScope(properties, GetParameters(templates), GetParameters(udas));
+        return new EntityQueryScope(GetParameters(templates), GetParameters(udas));
     }
 
     private QueryParameters GetParameters(IEnumerable<PropertySingle> properties)
     {
-        var stringNames = new ArrayList();
-        var doubleNames = new ArrayList();
-        var integerNames = new ArrayList();
+        var stringProperties = new List<PropertySingle>();
+        var doubleProperties = new List<PropertySingle>();
+        var integerNames = new List<PropertySingle>();
         foreach (var item in properties.GroupBy(p => p.ParameterValueType))
         {
             switch (item.Key)
             {
                 case ParameterValueType.String:
-                    AddRange(stringNames, item.Select(i => i.TeklaName));
+                    stringProperties.AddRange(item);
                     break;
                 case ParameterValueType.Double:
-                    AddRange(doubleNames, item.Select(i => i.TeklaName));
+                    doubleProperties.AddRange(item);
                     break;
                 case ParameterValueType.Integer:
-                    AddRange(integerNames, item.Select(i => i.TeklaName));
+                    integerNames.AddRange(item);
                     break;
                 default:
                     break;
             }
         }
 
-        return new QueryParameters(stringNames, doubleNames, integerNames);
+        return new QueryParameters(ToQueryType(stringProperties, ParameterValueType.String),
+                                   ToQueryType(doubleProperties, ParameterValueType.Double),
+                                   ToQueryType(integerNames, ParameterValueType.Integer));
 
-        void AddRange(ArrayList arrayList, IEnumerable<string> toAdd)
+        SingleTypeQuery ToQueryType(List<PropertySingle> properties, ParameterValueType parameterValueType)
         {
-            foreach (var item in toAdd)
-                arrayList.Add(item);
+            var names = new ArrayList(properties.Select(p => p.TeklaName).ToArray());
+
+            return new SingleTypeQuery(parameterValueType, names, properties);
         }
     }
 }
@@ -152,14 +154,11 @@ public class PropertySingleFactory
     }
 }
 
-public record PropertySingle(PSetName PSet, string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
-
-public record IfcProperties(PSetName PSetName, IReadOnlyList<PropertySingle> Properties);
-
 public record PSetName(string Name);
-public record QueryParameters(ArrayList StringNames, ArrayList DoubleNames, ArrayList IntegerNames);
-
-public record EntityQueryScope(List<IfcProperties> Properties, QueryParameters Templates, QueryParameters Udas);
+public record PropertySingle(PSetName PSet, string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
+public record SingleTypeQuery(ParameterValueType ParameterValueType, ArrayList QueryNames, IReadOnlyList<PropertySingle> Properties);
+public record QueryParameters(SingleTypeQuery StringNames, SingleTypeQuery DoubleNames, SingleTypeQuery IntegerNames);
+public record EntityQueryScope(QueryParameters Templates, QueryParameters Udas);
 
 public enum ParameterType
 {

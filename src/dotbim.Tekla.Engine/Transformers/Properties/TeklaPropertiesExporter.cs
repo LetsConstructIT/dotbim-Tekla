@@ -30,39 +30,34 @@ internal class TeklaPropertiesExporter
             return [];
 
         var result = new Dictionary<string, string>();
-        QueryTemplate(result, modelObject, queryScope.Templates, queryScope.Properties);
+        QueryTemplate(result, modelObject, queryScope.Templates);
 
         return result;
     }
 
-    private void QueryTemplate(Dictionary<string, string> result, ModelObject part, QueryParameters queryParameters, List<IfcProperties> properties)
+    private void QueryTemplate(Dictionary<string, string> result, ModelObject part, QueryParameters queryParameters)
     {
-        var propertyNames = queryParameters.DoubleNames;
+        var singleTypeQuery = queryParameters.DoubleNames;
 
-        if (propertyNames.Count > 0)
+        if (singleTypeQuery.QueryNames.Count == 0)
+            return;
+
+        var values = new Hashtable();
+        part.GetDoubleReportProperties(singleTypeQuery.QueryNames, ref values);
+
+        if (values.Count == 0)
+            return;
+
+        foreach (var property in singleTypeQuery.Properties)
         {
-            var values = new Hashtable();
-            part.GetDoubleReportProperties(propertyNames, ref values);
+            if (!values.ContainsKey(property.TeklaName))
+                continue;
 
-            foreach (string propertyName in propertyNames)
-            {
-                if (!values.ContainsKey(propertyName))
-                    continue;
-
-                var value = (double)values[propertyName];
-
-                var pSets = properties
-                    .Where(p => p.Properties
-                    .Any(r => r.ParameterType == ParameterType.Template && r.ParameterValueType == ParameterValueType.Double && r.TeklaName == propertyName));
-
-                foreach (var pSet in pSets)
-                {
-                    result[ConstructKey(pSet.PSetName, propertyName)] = value.ToString(CultureInfo.InvariantCulture);
-                }
-            }
+            var value = (double)values[property.TeklaName];
+            result[ConstructKey(property)] = value.ToString(CultureInfo.InvariantCulture);
         }
     }
 
-    private string ConstructKey(PSetName propertySet, string property)
-        => $"{propertySet.Name}.{property}";
+    private string ConstructKey(PropertySingle property)
+        => $"{property.PSet.Name}.{property.OutputName}";
 }
