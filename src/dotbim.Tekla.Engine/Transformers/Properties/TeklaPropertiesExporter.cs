@@ -63,6 +63,6 @@ internal class TeklaPropertiesExporter
         }
     }
 
-    private string ConstructKey(string propertySet, string property)
-        => $"{propertySet}.{property}";
+    private string ConstructKey(PSetName propertySet, string property)
+        => $"{propertySet.Name}.{property}";
 }

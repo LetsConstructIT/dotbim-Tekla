@@ -34,7 +34,7 @@ public class PropertySetBuilder
                 .Select(_propertySingleFactory.Construct)
                 .ToList();
 
-            var ifcProperties = new IfcProperties(propertySet.Name, properties);
+            var ifcProperties = new IfcProperties(new(propertySet.Name), properties);
             foreach (var entityType in entityTypes)
             {
                 if (dictionary.ContainsKey(entityType))
@@ -154,8 +154,9 @@ public class PropertySingleFactory
 
 public record PropertySingle(string OutputName, string TeklaName, ParameterType ParameterType, ParameterValueType ParameterValueType);
 
-public record IfcProperties(string PSetName, IReadOnlyList<PropertySingle> Properties);
+public record IfcProperties(PSetName PSetName, IReadOnlyList<PropertySingle> Properties);
 
+public record PSetName(string Name);
 public record QueryParameters(ArrayList StringNames, ArrayList DoubleNames, ArrayList IntegerNames);
 
 public record EntityQueryScope(List<IfcProperties> Properties, QueryParameters Templates, QueryParameters Udas);
