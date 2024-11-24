@@ -2,6 +2,7 @@
 using dotbimTekla.Engine.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace dotbimTekla.Engine.Exporters;
 
@@ -29,7 +30,7 @@ public class DotbimElementCreator
             Vector = new Vector() { X = 0, Y = 0, Z = 0 },
             Rotation = new Rotation() { Qx = 0, Qy = 0, Qz = 0, Qw = 1 },
             MeshId = meshId,
-            Info = elementData.Metadata
+            Info = elementData.Metadata.ToDictionary(x => x.Key, x => x.Value)
         };
     }
 }

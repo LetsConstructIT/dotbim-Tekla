@@ -1,8 +1,10 @@
 ﻿using dotbimTekla.Engine.Exporters.Properties;
+using dotbimTekla.Engine.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Tekla.Structures.Model;
 
 namespace dotbimTekla.Engine.Transformers.Properties;
@@ -10,6 +12,7 @@ internal class TeklaPropertiesExporter
 {
     private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
     private readonly string _teklaVersion;
+    private readonly IComparer<string> _dictionaryKeysComparer;
 
     private readonly Func<object, string> _convertDouble = (value => ((double)value).ToString(CultureInfo.InvariantCulture));
     private readonly Func<object, string> _convertInt = (value => ((int)value).ToString(CultureInfo.InvariantCulture));
@@ -19,15 +22,16 @@ internal class TeklaPropertiesExporter
     {
         _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
         _teklaVersion = $"Tekla Structures {Tekla.Structures.TeklaStructuresInfo.GetCurrentProgramVersion()}";
+        _dictionaryKeysComparer = new NaturalStringComparer();
     }
 
-    internal Dictionary<string, string> ReadProperties(ModelObject modelObject, IfcPropertiesDictionary? ifcPropertiesDictionary)
+    internal SortedDictionary<string, string> ReadProperties(ModelObject modelObject, IfcPropertiesDictionary? ifcPropertiesDictionary)
     {
-        var result = new Dictionary<string, string>
+        var result = new SortedDictionary<string, string>(_dictionaryKeysComparer)
         {
             ["Source"] = _teklaVersion
         };
-
+                
         if (ifcPropertiesDictionary is null)
             return result;
 
@@ -45,7 +49,7 @@ internal class TeklaPropertiesExporter
         return result;
     }
 
-    private void QueryTemplate(Dictionary<string, string> result, ModelObject modelObject, QueryParameters queryParameters)
+    private void QueryTemplate(SortedDictionary<string, string> result, ModelObject modelObject, QueryParameters queryParameters)
     {
         static void doubleQuery(ModelObject modelObject, ArrayList queryNames, Hashtable result) => modelObject.GetDoubleReportProperties(queryNames, ref result);
         static void intQuery(ModelObject modelObject, ArrayList queryNames, Hashtable result) => modelObject.GetIntegerReportProperties(queryNames, ref result);
@@ -56,7 +60,7 @@ internal class TeklaPropertiesExporter
         SingleTypeQuery(result, modelObject, queryParameters.StringNames, _convertString, stringQuery);
     }
 
-    private void SingleTypeQuery(Dictionary<string, string> result, ModelObject modelObject, SingleTypeQuery singleTypeQuery, Func<object, string> resultConversion, Action<ModelObject, ArrayList, Hashtable> teklaQuery)
+    private void SingleTypeQuery(SortedDictionary<string, string> result, ModelObject modelObject, SingleTypeQuery singleTypeQuery, Func<object, string> resultConversion, Action<ModelObject, ArrayList, Hashtable> teklaQuery)
     {
         if (singleTypeQuery.QueryNames.Count == 0)
             return;
@@ -76,7 +80,7 @@ internal class TeklaPropertiesExporter
         }
     }
 
-    private void QueryUda(Dictionary<string, string> result, ModelObject modelObject, QueryParameters udas)
+    private void QueryUda(SortedDictionary<string, string> result, ModelObject modelObject, QueryParameters udas)
     {
         foreach (var property in udas.DoubleNames.Properties)
         {

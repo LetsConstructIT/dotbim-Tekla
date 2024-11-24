@@ -10,9 +10,9 @@ public class ElementData
     public Color Color { get; }
     public Guid Guid { get; }
     public string Name { get; }
-    public Dictionary<string, string> Metadata { get; }
+    public SortedDictionary<string, string> Metadata { get; }
 
-    public ElementData(IReadOnlyList<Triangle> triangles, Color color, Guid guid, string name, Dictionary<string, string> metadata)
+    public ElementData(IReadOnlyList<Triangle> triangles, Color color, Guid guid, string name, SortedDictionary<string, string> metadata)
     {
         Triangles = triangles ?? throw new ArgumentNullException(nameof(triangles));
         Color = color;
