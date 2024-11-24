@@ -9,6 +9,7 @@ namespace dotbimTekla.Engine.Transformers.Properties;
 internal class TeklaPropertiesExporter
 {
     private readonly IIfcEntityTypeQuery _ifcEntityTypeQuery;
+    private readonly string _teklaVersion;
 
     private readonly Func<object, string> _convertDouble = (value => ((double)value).ToString(CultureInfo.InvariantCulture));
     private readonly Func<object, string> _convertInt = (value => ((int)value).ToString(CultureInfo.InvariantCulture));
@@ -17,22 +18,27 @@ internal class TeklaPropertiesExporter
     public TeklaPropertiesExporter()
     {
         _ifcEntityTypeQuery = new IfcEntityTypeQuery2022();
+        _teklaVersion = $"Tekla Structures {Tekla.Structures.TeklaStructuresInfo.GetCurrentProgramVersion()}";
     }
 
     internal Dictionary<string, string> ReadProperties(ModelObject modelObject, IfcPropertiesDictionary? ifcPropertiesDictionary)
     {
+        var result = new Dictionary<string, string>
+        {
+            ["Source"] = _teklaVersion
+        };
+
         if (ifcPropertiesDictionary is null)
-            return [];
+            return result;
 
         var entityType = _ifcEntityTypeQuery.GetEntityType(modelObject);
         if (!entityType.HasValue)
-            return [];
+            return result;
 
         var queryScope = ifcPropertiesDictionary.QueryScope(entityType.Value);
         if (queryScope is null)
-            return [];
+            return result;
 
-        var result = new Dictionary<string, string>();
         QueryTemplate(result, modelObject, queryScope.Templates);
         QueryUda(result, modelObject, queryScope.Udas);
 
