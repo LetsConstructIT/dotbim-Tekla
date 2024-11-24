@@ -37,6 +37,6 @@ public class TeklaToDomainTransformer
         };
     }
 
-    public SortedDictionary<string, string> GetMetadata(TSM.Part part, IfcPropertiesDictionary? ifcPropertiesDictionary)
-        => _teklaPropertiesExporter.ReadProperties(part, ifcPropertiesDictionary);
+    public SortedDictionary<string, string> GetMetadata(TSM.ModelObject modelObject, IfcPropertiesDictionary? ifcPropertiesDictionary)
+        => _teklaPropertiesExporter.ReadProperties(modelObject, ifcPropertiesDictionary);
 }
