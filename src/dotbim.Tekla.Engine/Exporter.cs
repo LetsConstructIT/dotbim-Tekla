@@ -52,7 +52,7 @@ public class Exporter
         sw.Restart();
 
         var dotbimFile = _dotbimExporter.CreateDotbim(elementsData);
-        dotbimFile.Save(settings.FilePath);
+        dotbimFile.Save(settings.FilePath, format: false);
 
         times.Add(sw.ElapsedMilliseconds);
         sw.Stop();
