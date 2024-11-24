@@ -45,7 +45,10 @@ public class TeklaGeometryTransformer
         var vertexEnum = loop.GetVertexEnumerator();
         while (vertexEnum.MoveNext())
         {
-            points.Add(vertexEnum.Current);
+            var pointInMeters = new Point(vertexEnum.Current.X / 1000,
+                                          vertexEnum.Current.Y / 1000,
+                                          vertexEnum.Current.Z / 1000);
+            points.Add(pointInMeters);
         }
 
         return new Polygon(points);
