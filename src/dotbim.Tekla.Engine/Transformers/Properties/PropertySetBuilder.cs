@@ -39,7 +39,7 @@ public class PropertySetBuilder
                 if (dictionary.ContainsKey(entityType))
                     dictionary[entityType].AddRange(properties);
                 else
-                    dictionary[entityType] = properties;
+                    dictionary[entityType] = new List<PropertySingle>(properties);
             }
         }
 
