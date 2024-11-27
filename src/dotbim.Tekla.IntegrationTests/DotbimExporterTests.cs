@@ -30,7 +30,7 @@ namespace dotbimTekla.IntegrationTests
                     new Color(),
                     Guid.NewGuid(),
                     "name",
-                    new Dictionary<string,string>())
+                    new SortedDictionary<string,string>())
             };
 
             var sut = new DotbimExporter();
@@ -54,7 +54,7 @@ namespace dotbimTekla.IntegrationTests
                     new Color(),
                     Guid.NewGuid(),
                     "name",
-                    new Dictionary<string,string>())
+                    new SortedDictionary<string,string>())
             };
 
             var sut = new DotbimExporter();
