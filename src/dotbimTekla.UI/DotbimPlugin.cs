@@ -1,11 +1,6 @@
 ﻿using dotbimTekla.Engine.ValueObjects;
 using dotbimTekla.Engine;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using System.Text;
-using System.Threading.Tasks;
 using Tekla.Structures.Plugins;
 
 namespace dotbimTekla.UI;
@@ -15,6 +10,13 @@ namespace dotbimTekla.UI;
 [InputObjectDependency(InputObjectDependency.NOT_DEPENDENT)]
 public class DotbimPlugin : PluginBase
 {
+    private readonly PluginData _pluginData;
+
+    public DotbimPlugin(PluginData pluginData)
+    {
+        _pluginData = pluginData;
+    }
+
     public override List<InputDefinition> DefineInput()
     {
         return new List<InputDefinition>();

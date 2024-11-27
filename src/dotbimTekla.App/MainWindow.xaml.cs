@@ -10,32 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Tekla.Structures.Dialog;
 
-namespace dotbimTekla.UI
+namespace dotbimTekla.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : PluginWindowBase
+    public partial class MainWindow : Window
     {
-        private readonly MainWindowViewModel _viewModel;
-
-        public MainWindow(MainWindowViewModel viewModel)
+        public MainWindow()
         {
-            this._viewModel = viewModel;
             InitializeComponent();
-        }
-
-        private void Export_Click(object sender, RoutedEventArgs e)
-        {
-            this.Modify();
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

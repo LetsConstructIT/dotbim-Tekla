@@ -7,23 +7,36 @@
                       xmlns:tsd="clr-namespace:Tekla.Structures.Dialog;assembly=Tekla.Structures.Dialog"
                       xmlns:UIControls="clr-namespace:Tekla.Structures.Dialog.UIControls;assembly=Tekla.Structures.Dialog"
                       mc:Ignorable="d"
-                      Title="MainWindow"
+                      Title="dotbim Export"
                       Height="450"
                       Width="800">
   <Grid>
-    <UIControls:WpfSaveLoad />
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
 
-    <Label Content="Dummy label" Margin="0 50 0 0" />
+    <UIControls:WpfSaveLoad Grid.Row="0" />
 
-    <UIControls:WpfOkApplyModifyGetOnOffCancel HorizontalAlignment="Stretch"
-                                               Margin="0,150,0,0"
-                                               VerticalAlignment="Bottom"
-                                               Height="51"
-                                               ApplyClicked="WPFOkApplyModifyGetOnOffCancel_ApplyClicked"
-                                               CancelClicked="WPFOkApplyModifyGetOnOffCancel_CancelClicked"
-                                               GetClicked="WPFOkApplyModifyGetOnOffCancel_GetClicked"
-                                               OkClicked="WPFOkApplyModifyGetOnOffCancel_OkClicked"
-                                               OnOffClicked="WPFOkApplyModifyGetOnOffCancel_OnOffClicked"
-                                               ModifyClicked="WPFOkApplyModifyGetOnOffCancel_ModifyClicked" />
+    <local:MainControl Grid.Row="1" />
+
+    <Grid Grid.Row="2"
+          Margin="5">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <Button Content="Export"
+              Width="100"
+              Grid.Column="0"
+              Click="Export_Click" />
+
+      <Button Content="Cancel"
+              Width="100"
+              Grid.Column="1"
+              Click="Cancel_Click" />
+    </Grid>
   </Grid>
 </tsd:PluginWindowBase>

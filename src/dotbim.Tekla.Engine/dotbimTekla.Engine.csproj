@@ -23,7 +23,9 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Tekla.Structures.Model" Version="2024.0.4" />
+        <PackageReference Include="Tekla.Structures.Model" Version="2024.0.4">
+          <IncludeAssets>compile;build</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>
