@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotbimTekla.Benchmark", "dotbim.Tekla.Benchmark\dotbimTekla.Benchmark.csproj", "{74E4B7D4-944B-4524-A39C-EBD615BC85B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotbimTekla.UI", "dotbimTekla.UI\dotbimTekla.UI.csproj", "{B70C7BB9-BF95-4895-A0AB-F24472CE7860}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{74E4B7D4-944B-4524-A39C-EBD615BC85B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74E4B7D4-944B-4524-A39C-EBD615BC85B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74E4B7D4-944B-4524-A39C-EBD615BC85B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70C7BB9-BF95-4895-A0AB-F24472CE7860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70C7BB9-BF95-4895-A0AB-F24472CE7860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70C7BB9-BF95-4895-A0AB-F24472CE7860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70C7BB9-BF95-4895-A0AB-F24472CE7860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
