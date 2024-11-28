@@ -32,6 +32,8 @@ public class DotbimPlugin : PluginBase
         var sut = new Exporter();
         sut.Export(settings);
 
+        Tekla.Structures.Model.Operations.Operation.DisplayPrompt($".bim file saved as {settings.FilePath}");
+
         return true;
     }
 
