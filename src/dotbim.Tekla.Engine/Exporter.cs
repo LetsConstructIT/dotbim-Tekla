@@ -31,34 +31,16 @@ public class Exporter
 
     public void Export(ExportSettings settings)
     {
-        var times = new List<long>();
-
-        var sw = System.Diagnostics.Stopwatch.StartNew();
         var modelObjects = _teklaSelectorFactory.Create(settings.Mode).Get().ToList();
         if (modelObjects.None())
             return;
 
-        times.Add(sw.ElapsedMilliseconds);
-        sw.Restart();
-
         var ifcPropertiesDictionary = _propertySetBuilder.GetNeededProperties(settings.PropertySetSettingsPath);
-
-        times.Add(sw.ElapsedMilliseconds);
-        sw.Restart();
 
         var elementsData = QueryElementData(modelObjects, ifcPropertiesDictionary);
 
-        times.Add(sw.ElapsedMilliseconds);
-        sw.Restart();
-
         var dotbimFile = _dotbimExporter.CreateDotbim(elementsData);
         dotbimFile.Save(settings.FilePath, format: false);
-
-        times.Add(sw.ElapsedMilliseconds);
-        sw.Stop();
-        var message = $"\nIt took {string.Join(" ms, ", times)} ms. Summary: {times.Sum()} ms.";
-        Console.WriteLine(message);
-        System.IO.File.AppendAllText($"C:\\temp\\benchmark.txt", message);
     }
 
     private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects, IfcPropertiesDictionary? ifcPropertiesDictionary)
