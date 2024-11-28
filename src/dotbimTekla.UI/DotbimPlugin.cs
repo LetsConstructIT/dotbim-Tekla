@@ -39,7 +39,9 @@ public class DotbimPlugin : PluginBase
 
     private ExportSettings GetSettings()
     {
-        var pSetSettings = _propertySetsDefinitionSearcher.FindSettingsPath(_pluginData.PropertySets);
+        var pSetSettings = _pluginData.PropertySets == "<empty>" ? 
+            string.Empty :
+            _propertySetsDefinitionSearcher.FindSettingsPath(_pluginData.PropertySets);
 
         return new ExportSettings((ExportMode)_pluginData.SelectionMode,
                                   _pluginData.OutputPath,

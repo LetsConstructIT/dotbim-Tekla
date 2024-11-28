@@ -51,6 +51,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void PopulateSettings()
     {
+        AvailableSettings.Add("<empty>");
+
         foreach (var settings in _propertySetsDefinitionSearcher.GetFullSettingPaths())
         {
             var fileName = Path.GetFileNameWithoutExtension(settings);
