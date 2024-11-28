@@ -19,13 +19,24 @@ namespace dotbimTekla.UI
                 if (!Directory.Exists(additionalPSetsDir))
                     continue;
 
-                settings.AddRange(GetPropertSetFiles(additionalPSetsDir));
+                settings.AddRange(GetPropertySetFiles(additionalPSetsDir));
             }
 
             return settings.OrderBy(s => Path.GetFileName(s)).ToList();
         }
 
-        private IEnumerable<string> GetPropertSetFiles(string additionalPSetsDir)
+        public string? FindSettingsPath(string settingsName)
+        {
+            foreach (var path in GetFullSettingPaths())
+            {
+                if (Path.GetFileNameWithoutExtension(path) == settingsName)
+                    return path;
+            }
+
+            return null;
+        }
+
+        private IEnumerable<string> GetPropertySetFiles(string additionalPSetsDir)
         {
             return Directory.EnumerateFiles(additionalPSetsDir, "*.xml");
         }

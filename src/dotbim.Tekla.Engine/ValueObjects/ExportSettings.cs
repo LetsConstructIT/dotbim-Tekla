@@ -1,3 +1,3 @@
 ﻿namespace dotbimTekla.Engine.ValueObjects;
 
-public record ExportSettings(ExportMode Mode, string FilePath, string PropertSetSettingsName);
+public record ExportSettings(ExportMode Mode, string FilePath, string? PropertySetSettingsPath);

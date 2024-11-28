@@ -11,10 +11,13 @@ namespace dotbimTekla.UI;
 public class DotbimPlugin : PluginBase
 {
     private readonly PluginData _pluginData;
+    private readonly PropertySetsDefinitionSearcher _propertySetsDefinitionSearcher;
 
     public DotbimPlugin(PluginData pluginData)
     {
         _pluginData = pluginData;
+
+        _propertySetsDefinitionSearcher = new PropertySetsDefinitionSearcher();
     }
 
     public override List<InputDefinition> DefineInput()
@@ -24,14 +27,20 @@ public class DotbimPlugin : PluginBase
 
     public override bool Run(List<InputDefinition> Input)
     {
-        var powerFabSettings = @"C:\TeklaStructures\2024.0\Environments\common\system\AdditionalPSets\Tekla PowerFab.xml";
-        var settings = new ExportSettings(ExportMode.Selection,
-                                          @"C:\temp\test.bim",
-                                          powerFabSettings);
+        var settings = GetSettings();
 
         var sut = new Exporter();
         sut.Export(settings);
 
         return true;
+    }
+
+    private ExportSettings GetSettings()
+    {
+        var pSetSettings = _propertySetsDefinitionSearcher.FindSettingsPath(_pluginData.PropertySets);
+
+        return new ExportSettings((ExportMode)_pluginData.SelectionMode,
+                                  _pluginData.OutputPath,
+                                  pSetSettings);
     }
 }

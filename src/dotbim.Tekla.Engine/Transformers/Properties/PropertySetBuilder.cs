@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace dotbimTekla.Engine.Exporters.Properties;
@@ -15,8 +16,11 @@ public class PropertySetBuilder
         _propertySingleFactory = new();
     }
 
-    public IfcPropertiesDictionary? GetNeededProperties(string filePath)
+    public IfcPropertiesDictionary? GetNeededProperties(string? filePath)
     {
+        if (filePath == null || !File.Exists(filePath))
+            return null;
+
         var propertySetConfiguration = _xmlFileSerializer.ReadFile(filePath);
         if (propertySetConfiguration is null)
             return null;
