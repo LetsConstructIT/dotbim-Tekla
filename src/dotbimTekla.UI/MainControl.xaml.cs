@@ -17,7 +17,7 @@ public partial class MainControl : UserControl
     {
         var saveFileDialog = new SaveFileDialog
         {
-            Filter = "dotbim files(*.dotbim)|*.dotbim"
+            Filter = "dotbim files(*.bim)|*.bim"
         };
 
         var result = saveFileDialog.ShowDialog();
