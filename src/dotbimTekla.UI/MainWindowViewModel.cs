@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
@@ -6,6 +7,8 @@ using TD = Tekla.Structures.Datatype;
 namespace dotbimTekla.UI;
 public class MainWindowViewModel : INotifyPropertyChanged
 {
+    private readonly PropertySetsDefinitionSearcher _propertySetsDefinitionSearcher;
+
     private int _selectionMode = 0;
     [StructuresDialog("SelectionMode", typeof(TD.Integer))]
     public int SelectionMode
@@ -30,14 +33,26 @@ public class MainWindowViewModel : INotifyPropertyChanged
         set { _propertySets = value; OnPropertyChanged(); }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged([CallerMemberName] string property = null)
+    public MainWindowViewModel()
     {
-        PropertyChangedEventHandler handler = PropertyChanged;
+        _propertySetsDefinitionSearcher = new PropertySetsDefinitionSearcher();
+
+        PopulateSettings();
+    }
+
+    private void PopulateSettings()
+    {
+        var availableSettings = _propertySetsDefinitionSearcher.GetFullSettingPaths();
+
+
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string? property = null)
+    {
+        var handler = PropertyChanged;
         if (handler != null)
-        {
             handler(this, new PropertyChangedEventArgs(property));
-        }
     }
 }
