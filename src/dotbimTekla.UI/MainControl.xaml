@@ -24,7 +24,7 @@
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto" />
-      <ColumnDefinition Width="150" />
+      <ColumnDefinition Width="250" />
       <ColumnDefinition Width="auto" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
@@ -48,12 +48,22 @@
             Data="{StaticResource Geometry.Folder}" />
     </Button>
 
-    <Label Content="Export"
+    <Label Content="Property sets"
            VerticalAlignment="Center"
            Grid.Row="1"
            Grid.Column="0" />
 
     <ComboBox Grid.Row="1"
+              Grid.Column="1"
+              ItemsSource="{Binding AvailableSettings}"
+              SelectedItem="{Binding PropertySets}" />
+
+    <Label Content="Export"
+           VerticalAlignment="Center"
+           Grid.Row="2"
+           Grid.Column="0" />
+
+    <ComboBox Grid.Row="2"
               Grid.Column="1"
               SelectedIndex="{Binding SelectionMode}">
       <ComboBoxItem Content="Selected objects" />

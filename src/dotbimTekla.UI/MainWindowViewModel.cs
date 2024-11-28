@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
@@ -33,6 +35,13 @@ public class MainWindowViewModel : INotifyPropertyChanged
         set { _propertySets = value; OnPropertyChanged(); }
     }
 
+    private ObservableCollection<string> _availableSettings = new ObservableCollection<string>();
+    public ObservableCollection<string> AvailableSettings
+    {
+        get { return _availableSettings; }
+        set { _availableSettings = value; OnPropertyChanged(); }
+    }
+
     public MainWindowViewModel()
     {
         _propertySetsDefinitionSearcher = new PropertySetsDefinitionSearcher();
@@ -42,9 +51,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void PopulateSettings()
     {
-        var availableSettings = _propertySetsDefinitionSearcher.GetFullSettingPaths();
-
-
+        foreach (var settings in _propertySetsDefinitionSearcher.GetFullSettingPaths())
+        {
+            var fileName = Path.GetFileNameWithoutExtension(settings);
+            AvailableSettings.Add(fileName);
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
