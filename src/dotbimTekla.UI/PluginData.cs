@@ -3,6 +3,12 @@
 namespace dotbimTekla.UI;
 public class PluginData
 {
-    [StructuresField("Path")]
-    public string Path;
+    [StructuresField("SelectionMode")]
+    public int SelectionMode;
+
+    [StructuresField("OutputPath")]
+    public string OutputPath;
+
+    [StructuresField("PropertySets")]
+    public string PropertySets;
 }

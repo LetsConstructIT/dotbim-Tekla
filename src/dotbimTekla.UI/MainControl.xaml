@@ -7,31 +7,58 @@
              xmlns:local="clr-namespace:dotbimTekla.UI"
              mc:Ignorable="d"
              d:Background="White"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
+             d:DesignHeight="200"
+             d:DesignWidth="300">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <Geometry x:Key="Geometry.Folder">M26.65 8.050l-13.15-0.050-1.75-1.65c-0.35-0.35-0.75-0.35-1.25-0.35h-5.5c-0.65 0-1 0.35-1 1v15.8c0 0.65 0.55 1.2 1.2 1.2h21.6c0.65 0 1.2-0.55 1.2-1.2v-13.4c0-0.65-0.55-1.2-1.35-1.35z</Geometry>
+    </ResourceDictionary>
+  </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto" />
-      <ColumnDefinition Width="50" />
+      <ColumnDefinition Width="150" />
+      <ColumnDefinition Width="auto" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
 
-    <Label Content="Path"
+    <Label Content="Output file"
+           VerticalAlignment="Center"
+           Grid.Row="0"
            Grid.Column="0" />
-    <UIControls:WpfFilterCheckBox VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  AttributeName="profile"
-                                  Grid.Column="1" />
-    <TextBox Grid.Column="2" />
 
-    <Button Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Height="50" 
-            Content="Test"/>
+    <TextBox x:Name="tbOutputPath"
+             Grid.Row="0"
+             Grid.Column="1"
+             Text="{Binding OutputPath}" />
+
+    <Button Grid.Row="0"
+            Padding="5 0 5 0"
+            Grid.Column="2"
+            Click="PickOutput_Click">
+      <Path Fill="#FF000000"
+            Width="12"
+            Data="{StaticResource Geometry.Folder}" />
+    </Button>
+
+    <Label Content="Export"
+           VerticalAlignment="Center"
+           Grid.Row="1"
+           Grid.Column="0" />
+
+    <ComboBox Grid.Row="1"
+              Grid.Column="1"
+              SelectedIndex="{Binding SelectionMode}">
+      <ComboBoxItem Content="Selected objects" />
+      <ComboBoxItem Content="All objects" />
+    </ComboBox>
+
   </Grid>
 </UserControl>
