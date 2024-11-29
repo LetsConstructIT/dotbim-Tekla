@@ -8,8 +8,10 @@
                       xmlns:UIControls="clr-namespace:Tekla.Structures.Dialog.UIControls;assembly=Tekla.Structures.Dialog"
                       mc:Ignorable="d"
                       Title="dotbim Export"
-                      Height="450"
-                      Width="800">
+                      MinWidth="500"
+                      MinHeight="200"
+                      Height="200"
+                      Width="500">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
@@ -17,7 +19,8 @@
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
-    <UIControls:WpfSaveLoad Grid.Row="0" />
+    <UIControls:WpfSaveLoad Grid.Row="0"
+                            HelpUrl="https://github.com/paireks/dotbim" />
 
     <local:MainControl Grid.Row="1" />
 

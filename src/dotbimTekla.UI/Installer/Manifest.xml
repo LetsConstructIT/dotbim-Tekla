@@ -16,17 +16,20 @@
         <SourcePathVariable Id="TepOutputFolder"  Value="%TEPDEFINITIONFILEFOLDER%\output" />
         <SourcePathVariable Id="SourceBinaries"   Value="%TEPDEFINITIONFILEFOLDER%\BuildDrop"/>
         <SourcePathVariable Id="SourceEnv"        Value="%TEPDEFINITIONFILEFOLDER%\Environments"/>
+        <SourcePathVariable Id="SourceBitmaps"    Value="%TEPDEFINITIONFILEFOLDER%\Bitmaps"/>
     </SourcePathVariables>
 
     <TargetPathVariables>
         <PathVariable Id="ExtensionName"         Value="DotbimExport"/>
         <PathVariable Id="ExtensionsRootDir"     Value="%commonEnvFolder%\extensions"/>
         <PathVariable Id="TargetBinaries"        Value="%ExtensionsRootDir%\%ExtensionName%"/>
+        <PathVariable Id="TargetBitmaps"         Value="%ENVDIR%\..\bitmaps"/>
     </TargetPathVariables>
 
     <Component Id="TheExtensionComponent" Guid="0AA72F01-A677-4E2F-80FB-2882F4F87764">
         <File Id="CopyBinaries" Source="%SourceBinaries%\*.*"  Target="%TargetBinaries%"       Recursive="yes" />
         <File Id="CopyEnvs"     Source="%SourceEnv%\*.*"       Target="%ENVDIR%"               Recursive="yes" />
+        <File Id="CopyBitmaps"  Source="%SourceBitmaps%\*.*"   Target="%TargetBitmaps%"        Recursive="yes" />
     </Component>
 
     <Feature Id="TheExtensionFeature" Title="ExtensionFeature">
