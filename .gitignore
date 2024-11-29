@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/src/dotbimTekla.UI/Installer/BuildDrop
+/src/dotbimTekla.UI/Installer/output

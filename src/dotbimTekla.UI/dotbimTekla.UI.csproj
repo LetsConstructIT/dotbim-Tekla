@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputPath>$(MSBuildProjectDirectory)\Installer\BuildDrop\</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <TargetFramework>net48</TargetFramework>
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
@@ -16,6 +18,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\dotbim.Tekla.Engine\dotbimTekla.Engine.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Installer\Environments\" />
     </ItemGroup>
 
 </Project>
