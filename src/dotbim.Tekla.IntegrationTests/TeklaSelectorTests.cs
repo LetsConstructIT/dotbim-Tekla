@@ -12,7 +12,7 @@ namespace dotbimTekla.IntegrationTests
         [TestMethod]
         public void ForAssemblies_Get_ReturnsMoreThanOneObject()
         {
-            var sut = new TeklaAssemblies();
+            var sut = new TeklaParts();
 
             var objects = sut.Get();
 

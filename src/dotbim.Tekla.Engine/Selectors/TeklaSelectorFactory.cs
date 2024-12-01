@@ -9,7 +9,7 @@ public class TeklaSelectorFactory
         return exportMode switch
         {
             ExportMode.Selection => new SelectedObjects(),
-            _ => new TeklaAssemblies()
+            _ => new TeklaParts()
         };
     }
 }
