@@ -2,6 +2,8 @@
 using dotbimTekla.Engine;
 using System.Collections.Generic;
 using Tekla.Structures.Plugins;
+using Trimble.Remoting.Proxies;
+using Tekla.Structures.Datatype;
 
 namespace dotbimTekla.UI;
 
@@ -27,14 +29,22 @@ public class DotbimPlugin : PluginBase
 
     public override bool Run(List<InputDefinition> Input)
     {
-        var settings = GetSettings();
+        try
+        {
+            var settings = GetSettings();
 
-        var sut = new Exporter();
-        sut.Export(settings);
+            var sut = new Exporter();
+            sut.Export(settings);
 
-        Tekla.Structures.Model.Operations.Operation.DisplayPrompt($".bim file saved as {settings.FilePath}");
-
-        return true;
+            Tekla.Structures.Model.Operations.Operation.DisplayPrompt($".bim file saved as {settings.FilePath}");
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            Tekla.Structures.ModelInternal.Operation.dotWriteErrorToSessionLog(ex.ToString());
+            Tekla.Structures.Model.Operations.Operation.DisplayPrompt("Export to .bim failed. Check Tekla's session log for more info.");
+            return false;
+        }
     }
 
     private ExportSettings GetSettings()
