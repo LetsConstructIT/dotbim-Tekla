@@ -29,11 +29,11 @@ public class Exporter
         _propertySetBuilder = new PropertySetBuilder();
     }
 
-    public void Export(ExportSettings settings)
+    public bool Export(ExportSettings settings)
     {
         var modelObjects = _teklaSelectorFactory.Create(settings.Mode).Get().ToList();
         if (modelObjects.None())
-            return;
+            return false;
 
         var ifcPropertiesDictionary = _propertySetBuilder.GetNeededProperties(settings.PropertySetSettingsPath);
 
@@ -41,6 +41,7 @@ public class Exporter
 
         var dotbimFile = _dotbimExporter.CreateDotbim(elementsData);
         dotbimFile.Save(settings.FilePath, format: false);
+        return true;
     }
 
     private List<ElementData> QueryElementData(IReadOnlyList<TSM.ModelObject> modelObjects, IfcPropertiesDictionary? ifcPropertiesDictionary)

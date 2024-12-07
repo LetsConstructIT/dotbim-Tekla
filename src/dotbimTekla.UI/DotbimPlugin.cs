@@ -34,9 +34,13 @@ public class DotbimPlugin : PluginBase
             var settings = GetSettings();
 
             var sut = new Exporter();
-            sut.Export(settings);
+            var result = sut.Export(settings);
 
-            Tekla.Structures.Model.Operations.Operation.DisplayPrompt($".bim file saved as {settings.FilePath}");
+            if (result)
+                Tekla.Structures.Model.Operations.Operation.DisplayPrompt($".bim file saved as {settings.FilePath}");
+            else
+                Tekla.Structures.Model.Operations.Operation.DisplayPrompt(".bim file was not created. Select objects before export.");
+
             return true;
         }
         catch (System.Exception ex)
