@@ -7,6 +7,8 @@ namespace dotbimTekla.Engine.Exporters;
 
 public class DotbimMeshCreator
 {
+    private const int _scale = 1000;
+
     public List<Mesh> Create(IReadOnlyList<ElementData> elements)
     {
         var meshes = new List<Mesh>();
@@ -48,9 +50,9 @@ public class DotbimMeshCreator
         var coords = new List<double>(pointDict.Count * 3);
         foreach (var item in pointDict)
         {
-            coords.Add(item.Key.X);
-            coords.Add(item.Key.Y);
-            coords.Add(item.Key.Z);
+            coords.Add(item.Key.X / _scale);
+            coords.Add(item.Key.Y / _scale);
+            coords.Add(item.Key.Z / _scale);
         }
 
         return coords;
