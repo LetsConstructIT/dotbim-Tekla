@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <SelectionMode>0</SelectionMode>
+  <OutputPath>.\IFC\test.bim</OutputPath>
+  <PropertySets>&lt;empty&gt;</PropertySets>
+</config>

@@ -21,8 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Installer\Environments\" />
       <Folder Include="Installer\Bitmaps\" />
+      <Folder Include="Installer\Environments\common\system\" />
     </ItemGroup>
 
 </Project>
